@@ -161,5 +161,9 @@ public class Persona implements Serializable {
     public String toString() {
         return "entidadesJPA.Persona[ id=" + id + " ]";
     }
+    
+    public String getNombreCompleto() {
+        return nombre + " " + apellidoPaterno + " " + apellidoMaterno;
+    }
 
 }
