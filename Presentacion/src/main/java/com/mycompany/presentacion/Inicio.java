@@ -4,6 +4,9 @@
  */
 package com.mycompany.presentacion;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 /**
  *
  * @author diana
@@ -15,6 +18,18 @@ public class Inicio extends javax.swing.JFrame {
      */
     public Inicio() {
         initComponents();
+        // Agregar ActionListener al botón TramiteLicencia
+        TramiteLicencia.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Crear instancia de la clase TramiteLicencia
+                TramiteLicencia tramite = new TramiteLicencia();
+                // Hacer visible la instancia creada
+                tramite.setVisible(true);
+                // Cerrar la ventana actual (Inicio)
+                dispose();
+            }
+        });
     }
 
     /**
@@ -30,7 +45,7 @@ public class Inicio extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jToggleButton1 = new javax.swing.JToggleButton();
-        jToggleButton2 = new javax.swing.JToggleButton();
+        TramiteLicencia = new javax.swing.JToggleButton();
         jTextField1 = new javax.swing.JTextField();
         jToggleButton3 = new javax.swing.JToggleButton();
         jToggleButton4 = new javax.swing.JToggleButton();
@@ -57,10 +72,10 @@ public class Inicio extends javax.swing.JFrame {
         });
         jPanel1.add(jToggleButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 120, 190, 50));
 
-        jToggleButton2.setBackground(new java.awt.Color(204, 0, 51));
-        jToggleButton2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jToggleButton2.setText("Tramite de licencia");
-        jPanel1.add(jToggleButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 200, 190, 50));
+        TramiteLicencia.setBackground(new java.awt.Color(204, 0, 51));
+        TramiteLicencia.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        TramiteLicencia.setText("Tramite de licencia");
+        jPanel1.add(TramiteLicencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 200, 190, 50));
 
         jTextField1.setBackground(new java.awt.Color(204, 0, 51));
         jTextField1.setForeground(new java.awt.Color(204, 204, 0));
@@ -153,12 +168,12 @@ public class Inicio extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JToggleButton TramiteLicencia;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JToggleButton jToggleButton1;
-    private javax.swing.JToggleButton jToggleButton2;
     private javax.swing.JToggleButton jToggleButton3;
     private javax.swing.JToggleButton jToggleButton4;
     private javax.swing.JToggleButton jToggleButton5;

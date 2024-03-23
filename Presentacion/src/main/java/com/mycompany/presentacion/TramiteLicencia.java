@@ -4,17 +4,91 @@
  */
 package com.mycompany.presentacion;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author diana
  */
 public class TramiteLicencia extends javax.swing.JFrame {
-
+    private String nombre;
+    private String rfc;
+    private String nacimiento;
+    private String telefono;
+    private String tiempoVigencia;
+    private boolean tieneDiscapacidad;
     /**
      * Creates new form TramiteLicencia
      */
     public TramiteLicencia() {
         initComponents();
+        // ActionListener para el BotonNombre
+        Nombre.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                nombre = Nombre.getText();
+            }
+        });
+        
+        // ActionListener para el  BotonRFC
+        RFC.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                rfc = RFC.getText();
+            }
+        });
+        
+        // ActionListener para el  BotonNacimiento
+        Nacimiento.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                nacimiento = Nacimiento.getText();
+            }
+        });
+        
+        // ActionListener para el BotonTelefono
+        Telefono.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                telefono = Telefono.getText();
+            }
+        });
+         // ActionListener para el ComboBox TiempoVigencia
+        TiempoVigencia.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                tiempoVigencia = (String) TiempoVigencia.getSelectedItem();
+            }
+        });
+        
+        // ActionListener para el ComboBox Discapacidad
+        Discapacidad.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String seleccion = (String) Discapacidad.getSelectedItem();
+                tieneDiscapacidad = seleccion.equals("Sí");
+            }
+        });
+        // ActionListener para el botón Regresar
+        Regresar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Aquí se regresa a la interfaz de inicio
+                dispose(); 
+                new Inicio().setVisible(true); // Muestra la ventana de inicio
+            }
+        });
+        // ActionListener para el botón Realizar Trámite
+        RealizarTramite.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+               
+                
+                JOptionPane.showMessageDialog(null, "Trámite realizado con éxito");
+            }
+        });
     }
 
     /**
@@ -26,21 +100,111 @@ public class TramiteLicencia extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        TiempoVigencia = new javax.swing.JComboBox<>();
+        jLabel6 = new javax.swing.JLabel();
+        Discapacidad = new javax.swing.JComboBox<>();
+        jLabel7 = new javax.swing.JLabel();
+        Costo = new javax.swing.JTextField();
+        Regresar = new javax.swing.JToggleButton();
+        RealizarTramite = new javax.swing.JButton();
+        RFC = new javax.swing.JTextField();
+        Nombre = new javax.swing.JTextField();
+        Nacimiento = new javax.swing.JTextField();
+        Telefono = new javax.swing.JTextField();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel1.setBackground(new java.awt.Color(218, 212, 212));
+        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel8.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
+        jLabel8.setText("Tramite de licencia");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 50, -1, -1));
+
+        jTextField2.setBackground(new java.awt.Color(204, 0, 51));
+        jTextField2.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
+        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 600, 55));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel1.setText("RFC:");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 150, 37, -1));
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel2.setText("Nombre:");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 190, -1, -1));
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel3.setText("Nacimiento:");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 230, -1, -1));
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel4.setText("Telefono:");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 270, -1, -1));
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel5.setText("Tiempo de vigencia:");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 130, 20));
+
+        TiempoVigencia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel1.add(TiempoVigencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 390, -1, -1));
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel6.setText("Discapacidad:");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 390, -1, -1));
+
+        Discapacidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel1.add(Discapacidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 390, -1, -1));
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel7.setText("Costo:");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 390, -1, -1));
+        jPanel1.add(Costo, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 390, -1, -1));
+
+        Regresar.setBackground(new java.awt.Color(204, 0, 51));
+        Regresar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        Regresar.setText("Regresar ");
+        jPanel1.add(Regresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(112, 450, 130, 30));
+
+        RealizarTramite.setBackground(new java.awt.Color(204, 0, 51));
+        RealizarTramite.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        RealizarTramite.setText("Realizar tramite");
+        jPanel1.add(RealizarTramite, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 450, 180, 30));
+        jPanel1.add(RFC, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 150, 260, 30));
+        jPanel1.add(Nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 190, 260, 30));
+        jPanel1.add(Nacimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 230, 260, 30));
+        jPanel1.add(Telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 270, 260, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +242,24 @@ public class TramiteLicencia extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField Costo;
+    private javax.swing.JComboBox<String> Discapacidad;
+    private javax.swing.JTextField Nacimiento;
+    private javax.swing.JTextField Nombre;
+    private javax.swing.JTextField RFC;
+    private javax.swing.JButton RealizarTramite;
+    private javax.swing.JToggleButton Regresar;
+    private javax.swing.JTextField Telefono;
+    private javax.swing.JComboBox<String> TiempoVigencia;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 }
