@@ -1,0 +1,5 @@
+Número de Placa: 3344566
+Número de Serie: 23245
+Marca: 2525
+Línea: 2345
+Costo: 255

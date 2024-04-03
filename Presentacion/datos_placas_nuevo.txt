@@ -1,0 +1,6 @@
+Número de Serie: ds
+Marca: d
+Línea: d
+Color: d
+Modelo: d
+Costo: 

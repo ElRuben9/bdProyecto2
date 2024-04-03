@@ -48,7 +48,7 @@ public class TramiteLicencia extends javax.swing.JFrame {
             }
         });
         
-        // ActionListener para el BotonTelefono
+        // ActionListener para el botónBotonTelefono
         Telefono.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -122,15 +122,17 @@ public class TramiteLicencia extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(218, 212, 212));
+        jPanel1.setBackground(new java.awt.Color(101, 118, 136));
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel8.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
-        jLabel8.setText("Tramite de licencia");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 50, -1, -1));
+        jLabel8.setBackground(new java.awt.Color(218, 184, 87));
+        jLabel8.setFont(new java.awt.Font("Book Antiqua", 0, 36)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("Trámite de licencia");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, -1, -1));
 
-        jTextField2.setBackground(new java.awt.Color(204, 0, 51));
+        jTextField2.setBackground(new java.awt.Color(218, 184, 87));
         jTextField2.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -139,50 +141,54 @@ public class TramiteLicencia extends javax.swing.JFrame {
         });
         jPanel1.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 600, 55));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setText("RFC:");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 150, 37, -1));
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel2.setText("Nombre:");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 190, -1, -1));
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setText("Nacimiento:");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 230, -1, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 230, -1, -1));
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setText("Telefono:");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 270, -1, -1));
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel5.setText("Tiempo de vigencia:");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 130, 20));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 390, 140, 20));
 
         TiempoVigencia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jPanel1.add(TiempoVigencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 390, -1, -1));
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel6.setText("Discapacidad:");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 390, -1, -1));
 
         Discapacidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(Discapacidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 390, -1, -1));
+        jPanel1.add(Discapacidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 390, -1, -1));
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel7.setText("Costo:");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 390, -1, -1));
-        jPanel1.add(Costo, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 390, -1, -1));
+        jPanel1.add(Costo, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 390, -1, -1));
 
-        Regresar.setBackground(new java.awt.Color(204, 0, 51));
+        Regresar.setBackground(new java.awt.Color(160, 11, 43));
         Regresar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        Regresar.setForeground(new java.awt.Color(255, 255, 255));
         Regresar.setText("Regresar ");
-        jPanel1.add(Regresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(112, 450, 130, 30));
+        Regresar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel1.add(Regresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 440, 130, 30));
 
-        RealizarTramite.setBackground(new java.awt.Color(204, 0, 51));
+        RealizarTramite.setBackground(new java.awt.Color(160, 11, 43));
         RealizarTramite.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        RealizarTramite.setText("Realizar tramite");
-        jPanel1.add(RealizarTramite, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 450, 180, 30));
+        RealizarTramite.setForeground(new java.awt.Color(255, 255, 255));
+        RealizarTramite.setText("Realizar trámite");
+        RealizarTramite.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel1.add(RealizarTramite, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 440, 180, 30));
         jPanel1.add(RFC, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 150, 260, 30));
         jPanel1.add(Nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 190, 260, 30));
         jPanel1.add(Nacimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 230, 260, 30));
@@ -196,7 +202,7 @@ public class TramiteLicencia extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE)
         );
 
         pack();

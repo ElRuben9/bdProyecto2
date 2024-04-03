@@ -1,0 +1,4 @@
+RFC: df
+Nombre: f
+Nacimiento: f
+Teléfono: f
