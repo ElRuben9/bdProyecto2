@@ -3,92 +3,109 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.mycompany.presentacion;
-
+ 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.JOptionPane;
 
 /**
  *
- * @author diana
+ * @author diana (Modificaciones: Antonio)
  */
+
 public class TramiteLicencia extends javax.swing.JFrame {
+
     private String nombre;
     private String rfc;
     private String nacimiento;
     private String telefono;
     private String tiempoVigencia;
     private boolean tieneDiscapacidad;
-    /**
-     * Creates new form TramiteLicencia
-     */
+
     public TramiteLicencia() {
         initComponents();
+
         // ActionListener para el BotonNombre
-        Nombre.addActionListener(new ActionListener() {
+        textFieldNombre.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                nombre = Nombre.getText();
+                nombre = textFieldNombre.getText();
             }
         });
-        
+
         // ActionListener para el  BotonRFC
-        RFC.addActionListener(new ActionListener() {
+        textFieldRFC.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                rfc = RFC.getText();
+                rfc = textFieldRFC.getText();
             }
         });
-        
-        // ActionListener para el  BotonNacimiento
-        Nacimiento.addActionListener(new ActionListener() {
+
+        JDCNacimiento.getDateEditor().addPropertyChangeListener(new PropertyChangeListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                nacimiento = Nacimiento.getText();
+            public void propertyChange(PropertyChangeEvent evt) {
+                if ("date".equals(evt.getPropertyName())) {
+                    // Obtener la fecha seleccionada
+                    Date selectedDate = JDCNacimiento.getDate();
+                    // Formatear la fecha en el formato deseado (dd/MM/yyyy)
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                    nacimiento = sdf.format(selectedDate);
+                }
             }
         });
-        
-        // ActionListener para el botónBotonTelefono
-        Telefono.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                telefono = Telefono.getText();
-            }
-        });
-         // ActionListener para el ComboBox TiempoVigencia
+
+        // ActionListener para el ComboBox TiempoVigencia
         TiempoVigencia.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 tiempoVigencia = (String) TiempoVigencia.getSelectedItem();
+                actualizarCosto(); // Llamar al método actualizarCosto() cuando cambia la selección
             }
         });
-        
-        // ActionListener para el ComboBox Discapacidad
+
+// ActionListener para el ComboBox Discapacidad
         Discapacidad.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String seleccion = (String) Discapacidad.getSelectedItem();
-                tieneDiscapacidad = seleccion.equals("Sí");
+                tieneDiscapacidad = seleccion.equals("SI");
+                actualizarCosto(); // Llamar al método actualizarCosto() cuando cambia la selección
             }
         });
-        // ActionListener para el botón Regresar
-        Regresar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Aquí se regresa a la interfaz de inicio
-                dispose(); 
-                new Inicio().setVisible(true); // Muestra la ventana de inicio
-            }
-        });
-        // ActionListener para el botón Realizar Trámite
-        RealizarTramite.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-               
-                
-                JOptionPane.showMessageDialog(null, "Trámite realizado con éxito");
-            }
-        });
+
+    }
+
+    private void actualizarCosto() {
+        int costoNormal = 0;
+        int costoDiscapacitados = 0;
+
+        switch (tiempoVigencia) {
+            case "1 AÑO":
+                costoNormal = 600;
+                costoDiscapacitados = 200;
+                break;
+            case "2 AÑOS":
+                costoNormal = 900;
+                costoDiscapacitados = 500;
+                break;
+            case "3 AÑOS":
+                costoNormal = 1100;
+                costoDiscapacitados = 700;
+                break;
+        }
+
+        // Aplicar descuento en caso de discapacidad
+        if (tieneDiscapacidad) {
+            textFieldCosto.setText(String.valueOf(costoDiscapacitados));
+        } else {
+            textFieldCosto.setText(String.valueOf(costoNormal));
+        }
     }
 
     /**
@@ -97,7 +114,7 @@ public class TramiteLicencia extends javax.swing.JFrame {
      * regenerated by the Form Editor.
      */
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
@@ -112,27 +129,25 @@ public class TramiteLicencia extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         Discapacidad = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
-        Costo = new javax.swing.JTextField();
+        textFieldCosto = new javax.swing.JTextField();
         Regresar = new javax.swing.JToggleButton();
         RealizarTramite = new javax.swing.JButton();
-        RFC = new javax.swing.JTextField();
-        Nombre = new javax.swing.JTextField();
-        Nacimiento = new javax.swing.JTextField();
-        Telefono = new javax.swing.JTextField();
+        textFieldRFC = new javax.swing.JTextField();
+        textFieldNombre = new javax.swing.JTextField();
+        textFieldTelefono = new javax.swing.JTextField();
+        JDCNacimiento = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(101, 118, 136));
+        jPanel1.setBackground(new java.awt.Color(218, 212, 212));
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel8.setBackground(new java.awt.Color(218, 184, 87));
-        jLabel8.setFont(new java.awt.Font("Book Antiqua", 0, 36)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("Trámite de licencia");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, -1, -1));
+        jLabel8.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
+        jLabel8.setText("Tramite de licencia");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 50, -1, -1));
 
-        jTextField2.setBackground(new java.awt.Color(218, 184, 87));
+        jTextField2.setBackground(new java.awt.Color(204, 0, 51));
         jTextField2.setFont(new java.awt.Font("Times New Roman", 0, 36)); // NOI18N
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -141,58 +156,82 @@ public class TramiteLicencia extends javax.swing.JFrame {
         });
         jPanel1.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 600, 55));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel1.setText("RFC:");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 150, 37, -1));
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel2.setText("Nombre:");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 190, -1, -1));
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel3.setText("Nacimiento:");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 230, -1, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 230, -1, -1));
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel4.setText("Telefono:");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 270, -1, -1));
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel5.setText("Tiempo de vigencia:");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 390, 140, 20));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 130, 20));
 
-        TiempoVigencia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        TiempoVigencia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1 AÑO", "2 AÑOS", "3 AÑOS" }));
         jPanel1.add(TiempoVigencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 390, -1, -1));
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel6.setText("Discapacidad:");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 390, -1, -1));
 
-        Discapacidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jPanel1.add(Discapacidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 390, -1, -1));
+        Discapacidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SI", "NO" }));
+        jPanel1.add(Discapacidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 390, -1, -1));
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel7.setText("Costo:");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 390, -1, -1));
-        jPanel1.add(Costo, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 390, -1, -1));
 
-        Regresar.setBackground(new java.awt.Color(160, 11, 43));
+        textFieldCosto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textFieldCostoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(textFieldCosto, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 390, 50, -1));
+
+        Regresar.setBackground(new java.awt.Color(204, 0, 51));
         Regresar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        Regresar.setForeground(new java.awt.Color(255, 255, 255));
         Regresar.setText("Regresar ");
-        Regresar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        Regresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RegresarActionPerformed(evt);
+            }
+        });
         jPanel1.add(Regresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 440, 130, 30));
 
-        RealizarTramite.setBackground(new java.awt.Color(160, 11, 43));
+        RealizarTramite.setBackground(new java.awt.Color(204, 0, 51));
         RealizarTramite.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        RealizarTramite.setForeground(new java.awt.Color(255, 255, 255));
-        RealizarTramite.setText("Realizar trámite");
-        RealizarTramite.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        RealizarTramite.setText("Realizar tramite");
+        RealizarTramite.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RealizarTramiteActionPerformed(evt);
+            }
+        });
         jPanel1.add(RealizarTramite, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 440, 180, 30));
-        jPanel1.add(RFC, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 150, 260, 30));
-        jPanel1.add(Nombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 190, 260, 30));
-        jPanel1.add(Nacimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 230, 260, 30));
-        jPanel1.add(Telefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 270, 260, 30));
+
+        textFieldRFC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textFieldRFCActionPerformed(evt);
+            }
+        });
+        jPanel1.add(textFieldRFC, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 150, 260, 30));
+        jPanel1.add(textFieldNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 190, 260, 30));
+
+        textFieldTelefono.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textFieldTelefonoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(textFieldTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 270, 260, 30));
+        jPanel1.add(JDCNacimiento, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 230, 260, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -202,15 +241,58 @@ public class TramiteLicencia extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }// </editor-fold>                        
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {                                            
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }                                           
+
+    private void RealizarTramiteActionPerformed(java.awt.event.ActionEvent evt) {                                                
+// Validar la longitud del número de teléfono
+    String telefono = textFieldTelefono.getText().trim();
+    if (telefono.length() != 10) {
+        JOptionPane.showMessageDialog(null, "El número de teléfono debe tener 10 dígitos.", "Error", JOptionPane.ERROR_MESSAGE);
+        textFieldTelefono.setText(""); // Limpiar el campo de texto
+        textFieldTelefono.requestFocus(); // Poner el foco en el campo de texto para que el usuario pueda corregirlo
+        return; // Salir del método si la validación del teléfono falla
+    }
+
+    // Si la validación del teléfono pasa, continuar con el proceso
+    int costoFinal = Integer.parseInt(textFieldCosto.getText());
+
+    // Mostrar el mensaje con el costo antes de confirmar el trámite
+    JOptionPane.showMessageDialog(null, "El costo del trámite es: $" + costoFinal + "\nTrámite realizado con éxito");
+
+    // Cerrar la ventana actual (TramiteLicencia)
+    dispose();
+
+    // Crear una nueva instancia de la clase Inicio y hacerla visible
+    new Inicio().setVisible(true);
+    }                                               
+
+    private void RegresarActionPerformed(java.awt.event.ActionEvent evt) {                                         
+          // Cerrar la ventana actual (TramiteLicencia)
+    dispose();
+
+    // Crear una nueva instancia de la clase Inicio y hacerla visible
+    new Inicio().setVisible(true);
+    }                                        
+
+    private void textFieldRFCActionPerformed(java.awt.event.ActionEvent evt) {                                             
+        // TODO add your handling code here:
+    }                                            
+
+    private void textFieldCostoActionPerformed(java.awt.event.ActionEvent evt) {                                               
+        // TODO add your handling code here:
+    }                                              
+
+    private void textFieldTelefonoActionPerformed(java.awt.event.ActionEvent evt) {                                                  
+
+    }                                                 
 
     /**
      * @param args the command line arguments
@@ -247,15 +329,11 @@ public class TramiteLicencia extends javax.swing.JFrame {
         });
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField Costo;
+    // Variables declaration - do not modify                     
     private javax.swing.JComboBox<String> Discapacidad;
-    private javax.swing.JTextField Nacimiento;
-    private javax.swing.JTextField Nombre;
-    private javax.swing.JTextField RFC;
+    private com.toedter.calendar.JDateChooser JDCNacimiento;
     private javax.swing.JButton RealizarTramite;
     private javax.swing.JToggleButton Regresar;
-    private javax.swing.JTextField Telefono;
     private javax.swing.JComboBox<String> TiempoVigencia;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -267,5 +345,10 @@ public class TramiteLicencia extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextField2;
-    // End of variables declaration//GEN-END:variables
+    private javax.swing.JTextField textFieldCosto;
+    private javax.swing.JTextField textFieldNombre;
+    private javax.swing.JTextField textFieldRFC;
+    private javax.swing.JTextField textFieldTelefono;
+    // End of variables declaration                   
 }
+
