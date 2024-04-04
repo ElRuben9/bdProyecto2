@@ -10,8 +10,13 @@ package negocio;
  */
 import dto.NuevoLicenciaDTO;
 import entidadesJPA.Licencia;
+import entidadesJPA.Persona;
 
 public interface IRegistroLicenciaBO {
 
     Licencia registrarLicencia(NuevoLicenciaDTO nuevoLicenciaDTO);
+    
+     boolean validarDatos(Persona persona);
+    
+    
 }

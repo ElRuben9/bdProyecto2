@@ -2,17 +2,22 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
+package DAOS;
 
-import DAOS.ILicenciaDAO;
 import entidadesJPA.Licencia;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 
 public class LicenciaDAO implements ILicenciaDAO {
 
-    @PersistenceContext
     private EntityManager entityManager;
-
+    private EntityManagerFactory emf;
+    
+    public LicenciaDAO() {
+        emf = Persistence.createEntityManagerFactory("ConexionPU"); 
+    }
     @Override
     public void guardarLicencia(Licencia licencia) {
         entityManager.persist(licencia);

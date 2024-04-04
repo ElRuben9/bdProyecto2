@@ -5,13 +5,15 @@
 package entidadesJPA;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.time.LocalDate;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 
 /**
@@ -21,18 +23,21 @@ import javax.persistence.Temporal;
 @Entity
 @Table(name = "licencia")
 public class Licencia implements Serializable {
-    @Column(name = "Numero_de_licencia", nullable = false, length = 9)  
+
+    @Column(name = "Numero_de_licencia", nullable = false, length = 9)
     private String numeroLicencia;
     @Column(name = "vigencia", nullable = false)
-    private LocalDate vigencia;
+    private Date vigencia;
     @Column(name = "costo", nullable = false)
     private double costo;
     @Column(name = "Fecha_de_expedicion", nullable = false)
     @Temporal(javax.persistence.TemporalType.DATE)
-    private LocalDate fechaExpedicion;
-    @Column(name = "Persona", nullable = false)
-    private Persona persona;
+    private Date fechaExpedicion;
     
+    @ManyToOne
+    @JoinColumn(name = "persona_id", nullable = false)
+    private Persona persona;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,7 +46,7 @@ public class Licencia implements Serializable {
     public Licencia() {
     }
 
-    public Licencia(String numeroLicencia, LocalDate vigencia, double costo, LocalDate fechaExpedicion, Persona persona, Long id) {
+    public Licencia(String numeroLicencia, Date vigencia, double costo, Date fechaExpedicion, Persona persona, Long id) {
         this.numeroLicencia = numeroLicencia;
         this.vigencia = vigencia;
         this.costo = costo;
@@ -50,7 +55,7 @@ public class Licencia implements Serializable {
         this.id = id;
     }
 
-    public Licencia(String numeroLicencia, LocalDate vigencia, double costo, LocalDate fechaExpedicion, Persona persona) {
+    public Licencia(String numeroLicencia, Date vigencia, double costo, Date fechaExpedicion, Persona persona) {
         this.numeroLicencia = numeroLicencia;
         this.vigencia = vigencia;
         this.costo = costo;
@@ -58,8 +63,6 @@ public class Licencia implements Serializable {
         this.persona = persona;
     }
 
-    
-    
     public Long getId() {
         return id;
     }
@@ -76,11 +79,11 @@ public class Licencia implements Serializable {
         this.numeroLicencia = numeroLicencia;
     }
 
-    public LocalDate getVigencia() {
+    public Date getVigencia() {
         return vigencia;
     }
 
-    public void setVigencia(LocalDate vigencia) {
+    public void setVigencia(Date vigencia) {
         this.vigencia = vigencia;
     }
 
@@ -92,11 +95,11 @@ public class Licencia implements Serializable {
         this.costo = costo;
     }
 
-    public LocalDate getFechaExpedicion() {
+    public Date getFechaExpedicion() {
         return fechaExpedicion;
     }
 
-    public void setFechaExpedicion(LocalDate fechaExpedicion) {
+    public void setFechaExpedicion(Date fechaExpedicion) {
         this.fechaExpedicion = fechaExpedicion;
     }
 
@@ -107,8 +110,6 @@ public class Licencia implements Serializable {
     public void setPersona(Persona persona) {
         this.persona = persona;
     }
-    
-    
 
     @Override
     public int hashCode() {
@@ -134,5 +135,5 @@ public class Licencia implements Serializable {
     public String toString() {
         return "entidadesJPA.Licencia[ id=" + id + " ]";
     }
-    
+
 }

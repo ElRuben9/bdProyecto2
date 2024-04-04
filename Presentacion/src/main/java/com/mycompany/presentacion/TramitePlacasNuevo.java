@@ -4,12 +4,7 @@
  */
 package com.mycompany.presentacion;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import javax.swing.JOptionPane;
+
 
 /**
  *
@@ -21,90 +16,10 @@ public class TramitePlacasNuevo extends javax.swing.JFrame {
      * Creates new form TramitePlacasNuevo
      */
      private String datosIngresados;
-    // Método para guardar los datos en un archivo de texto
-    private void guardarDatosEnArchivo(String datos) {
-    try {
-        FileWriter fileWriter = new FileWriter("datos_placas_nuevo.txt");
-        BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-        bufferedWriter.write(datos);
-        bufferedWriter.close();
-    } catch (IOException e) {
-        e.printStackTrace();
-    }
-   }
+   
     public TramitePlacasNuevo() {
         initComponents();
-        
-         // Agregar ActionListener al botón Regresar
-        Regresar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Crear instancia del JFrame TramitePlacas
-                TramitePlacas tramitePlacas = new TramitePlacas();
-                // Hacer visible la instancia creada
-                tramitePlacas.setVisible(true);
-                // Cerrar la ventana actual (TramitePlacasNuevo)
-                dispose();
-            }
-        });
-        RealizarTramite.addActionListener(new ActionListener() {
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        // Capturar los datos ingresados en las variables correspondientes
-   
-        String numSerie = NumSerie.getText();
-        String marca = Marca.getText();
-        String linea = Linea.getText();
-        String costo = Costo.getText();
-        String color = Color.getText();
-        String modelo = Modelo.getText();
-        // Crear una cadena con los datos ingresados
-        String datosIngresados = "Número de Serie: " + numSerie + "\n" +
-                                 "Marca: " + marca + "\n" +
-                                 "Línea: " + linea + "\n" +
-                                 "Color: " + color + "\n" +
-                                 "Modelo: " + modelo + "\n" +
-                                 "Costo: " + costo + "\n";
-
-        // Llamar al método para guardar los datos en un archivo de texto
-        guardarDatosEnArchivo(datosIngresados);
-
-        // Mostrar un mensaje de éxito
-        JOptionPane.showMessageDialog(null, "Datos guardados correctamente en datos_placas_nuevo.txt");
-
-        // Cerrar la ventana actual (TramitePlacasUsado)
-        dispose();
-    }
-});
-
-        // Agregar ActionListener al botón Realizar Tramite
-    RealizarTramite.addActionListener(new ActionListener() {
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        // Capturar los datos ingresados en las variables correspondientes
-        String numSerie = NumSerie.getText();
-        String marca = Marca.getText();
-        String linea = Linea.getText();
-        String color = Color.getText();
-        String modelo = Modelo.getText();
-        String costo = Costo.getText();
-
-        // Crear una cadena con los datos ingresados
-        String datosIngresados = "Número de Serie: " + numSerie + "\n" +
-                                 "Marca: " + marca + "\n" +
-                                 "Línea: " + linea + "\n" +
-                                 "Color: " + color + "\n" +
-                                 "Modelo: " + modelo + "\n" +
-                                 "Costo: " + costo + "\n";
-
-        // Llamar al método para guardar los datos en un archivo de texto
-        guardarDatosEnArchivo(datosIngresados);
-
-        // Mostrar un mensaje de éxito
-        JOptionPane.showMessageDialog(null, "Datos guardados correctamente en datos_placas_nuevo.txt");
-    }
-   });
-   
+  
     }
 
     /**
@@ -120,20 +35,20 @@ public class TramitePlacasNuevo extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        Color = new javax.swing.JTextField();
-        Modelo = new javax.swing.JTextField();
-        Marca = new javax.swing.JTextField();
-        Linea = new javax.swing.JTextField();
-        NumSerie = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
-        Costo = new javax.swing.JTextField();
-        Regresar = new javax.swing.JButton();
-        RealizarTramite = new javax.swing.JButton();
+        txtNumSerie = new javax.swing.JLabel();
+        txtMarca = new javax.swing.JLabel();
+        txtLinea = new javax.swing.JLabel();
+        txtColor = new javax.swing.JLabel();
+        txtModelo = new javax.swing.JLabel();
+        color = new javax.swing.JTextField();
+        modelo = new javax.swing.JTextField();
+        marca = new javax.swing.JTextField();
+        linea = new javax.swing.JTextField();
+        numSerie = new javax.swing.JTextField();
+        txtCosto = new javax.swing.JLabel();
+        costo = new javax.swing.JTextField();
+        botonRegresar = new javax.swing.JButton();
+        botonRealizarTramite = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -155,49 +70,49 @@ public class TramitePlacasNuevo extends javax.swing.JFrame {
         jTextField1.setMargin(new java.awt.Insets(101, 118, 136, 136));
         jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 600, 60));
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel3.setText("Num. Serie: ");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 150, -1, -1));
+        txtNumSerie.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txtNumSerie.setText("Num. Serie: ");
+        jPanel1.add(txtNumSerie, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 150, -1, -1));
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel4.setText("Marca:");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 210, -1, -1));
+        txtMarca.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txtMarca.setText("Marca:");
+        jPanel1.add(txtMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 210, -1, -1));
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel5.setText("Linea:");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 270, -1, -1));
+        txtLinea.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txtLinea.setText("Linea:");
+        jPanel1.add(txtLinea, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 270, -1, -1));
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel6.setText("Color:");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 330, -1, -1));
+        txtColor.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txtColor.setText("Color:");
+        jPanel1.add(txtColor, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 330, -1, -1));
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel7.setText("Modelo:");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 390, -1, -1));
-        jPanel1.add(Color, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 320, 280, 40));
-        jPanel1.add(Modelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 380, 280, 40));
-        jPanel1.add(Marca, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 200, 280, 40));
-        jPanel1.add(Linea, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 260, 280, 40));
-        jPanel1.add(NumSerie, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 140, 280, 40));
+        txtModelo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txtModelo.setText("Modelo:");
+        jPanel1.add(txtModelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 390, -1, -1));
+        jPanel1.add(color, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 320, 280, 40));
+        jPanel1.add(modelo, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 380, 280, 40));
+        jPanel1.add(marca, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 200, 280, 40));
+        jPanel1.add(linea, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 260, 280, 40));
+        jPanel1.add(numSerie, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 140, 280, 40));
 
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel8.setText("Costo:");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 440, -1, -1));
-        jPanel1.add(Costo, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 440, -1, -1));
+        txtCosto.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txtCosto.setText("Costo:");
+        jPanel1.add(txtCosto, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 440, -1, -1));
+        jPanel1.add(costo, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 440, -1, -1));
 
-        Regresar.setBackground(new java.awt.Color(160, 11, 43));
-        Regresar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        Regresar.setForeground(new java.awt.Color(255, 255, 255));
-        Regresar.setText("Regresar");
-        Regresar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanel1.add(Regresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 490, 180, 30));
+        botonRegresar.setBackground(new java.awt.Color(160, 11, 43));
+        botonRegresar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        botonRegresar.setForeground(new java.awt.Color(255, 255, 255));
+        botonRegresar.setText("Regresar");
+        botonRegresar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel1.add(botonRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 490, 180, 30));
 
-        RealizarTramite.setBackground(new java.awt.Color(160, 11, 43));
-        RealizarTramite.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        RealizarTramite.setForeground(new java.awt.Color(255, 255, 255));
-        RealizarTramite.setText("Realizar Tramite");
-        RealizarTramite.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanel1.add(RealizarTramite, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 440, 180, 30));
+        botonRealizarTramite.setBackground(new java.awt.Color(160, 11, 43));
+        botonRealizarTramite.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        botonRealizarTramite.setForeground(new java.awt.Color(255, 255, 255));
+        botonRealizarTramite.setText("Realizar Tramite");
+        botonRealizarTramite.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel1.add(botonRealizarTramite, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 440, 180, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -216,56 +131,26 @@ public class TramitePlacasNuevo extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TramitePlacasNuevo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TramitePlacasNuevo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TramitePlacasNuevo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TramitePlacasNuevo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new TramitePlacasNuevo().setVisible(true);
-            }
-        });
-    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField Color;
-    private javax.swing.JTextField Costo;
-    private javax.swing.JTextField Linea;
-    private javax.swing.JTextField Marca;
-    private javax.swing.JTextField Modelo;
-    private javax.swing.JTextField NumSerie;
-    private javax.swing.JButton RealizarTramite;
-    private javax.swing.JButton Regresar;
+    private javax.swing.JButton botonRealizarTramite;
+    private javax.swing.JButton botonRegresar;
+    private javax.swing.JTextField color;
+    private javax.swing.JTextField costo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField linea;
+    private javax.swing.JTextField marca;
+    private javax.swing.JTextField modelo;
+    private javax.swing.JTextField numSerie;
+    private javax.swing.JLabel txtColor;
+    private javax.swing.JLabel txtCosto;
+    private javax.swing.JLabel txtLinea;
+    private javax.swing.JLabel txtMarca;
+    private javax.swing.JLabel txtModelo;
+    private javax.swing.JLabel txtNumSerie;
     // End of variables declaration//GEN-END:variables
 }

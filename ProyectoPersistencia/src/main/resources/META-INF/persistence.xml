@@ -4,6 +4,9 @@
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>entidadesJPA.Licencia</class>
     <class>entidadesJPA.Persona</class>
+    <class>entidadesJPA.Tramite</class>
+    <class>entidadesJPA.Placa</class>
+    <class>entidadesJPA.Automovil</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/AgenciaFiscal?useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

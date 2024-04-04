@@ -5,7 +5,7 @@
 package entidadesJPA;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,7 +21,7 @@ public class Persona implements Serializable {
 
     @Column(name = "RFC", nullable = false, length = 13)
     private String RFC;
-    
+
     @Column(name = "Nombre")
     private String nombre;
 
@@ -30,13 +30,13 @@ public class Persona implements Serializable {
 
     @Column(name = "Ap_Materno")
     private String apellidoMaterno;
-    
+
     @Column(name = "Fecha_de_nacimiento")
-    private LocalDate fechaNacimiento;
-    
+    private Date fechaNacimiento;
+
     @Column(name = "telefono", length = 10)
     private String telefono;
-    
+
     @Column(name = "CURP", length = 18)
     private String curp;
 
@@ -45,7 +45,7 @@ public class Persona implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    public Persona(String RFC, String nombre, String apellidoPaterno, String apellidoMaterno, LocalDate fechaNacimiento, String telefono, String curp) {
+    public Persona(String RFC, String nombre, String apellidoPaterno, String apellidoMaterno, Date fechaNacimiento, String telefono, String curp) {
         this.RFC = RFC;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
@@ -58,7 +58,7 @@ public class Persona implements Serializable {
     public Persona() {
     }
 
-    public Persona(String RFC, String nombre, String apellidoPaterno, String apellidoMaterno, LocalDate fechaNacimiento, String telefono, String curp, Long id) {
+    public Persona(String RFC, String nombre, String apellidoPaterno, String apellidoMaterno, Date fechaNacimiento, String telefono, String curp, Long id) {
         this.RFC = RFC;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
@@ -69,8 +69,6 @@ public class Persona implements Serializable {
         this.id = id;
     }
 
-    
-    
     public Long getId() {
         return id;
     }
@@ -111,11 +109,11 @@ public class Persona implements Serializable {
         this.apellidoMaterno = apellidoMaterno;
     }
 
-    public LocalDate getFechaNacimiento() {
+    public Date getFechaNacimiento() {
         return fechaNacimiento;
     }
 
-    public void setFechaNacimiento(LocalDate fechaNacimiento) {
+    public void setFechaNacimiento(Date fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
 
@@ -135,8 +133,6 @@ public class Persona implements Serializable {
         this.curp = curp;
     }
 
-    
-    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -161,7 +157,7 @@ public class Persona implements Serializable {
     public String toString() {
         return "entidadesJPA.Persona[ id=" + id + " ]";
     }
-    
+
     public String getNombreCompleto() {
         return nombre + " " + apellidoPaterno + " " + apellidoMaterno;
     }

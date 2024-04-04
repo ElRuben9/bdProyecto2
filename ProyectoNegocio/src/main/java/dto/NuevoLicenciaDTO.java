@@ -17,6 +17,8 @@ public class NuevoLicenciaDTO {
     private LocalDate fechaExpedicion;
     private Long idPersona; 
 
+   
+    
     public String getNumeroLicencia() {
         return numeroLicencia;
     }
