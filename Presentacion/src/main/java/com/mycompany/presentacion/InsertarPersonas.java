@@ -9,6 +9,7 @@ import entidadesJPA.Persona;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -225,7 +226,6 @@ public class InsertarPersonas extends javax.swing.JFrame {
 
         String telefono = Telefono1.getText();
 
-      
         // Crear una instancia de Persona con los datos obtenidos, incluyendo la CURP
         Persona persona = new Persona(rfc, nombre, apellidoPaterno, apellidoMaterno, fechaNacimiento, telefono, CURP);
 
@@ -234,6 +234,10 @@ public class InsertarPersonas extends javax.swing.JFrame {
 
         // Guardar la nueva persona en la base de datos
         personaDAO.guardarPersona(persona);
+
+        JOptionPane.showMessageDialog(this, "Persona agregada con éxito.");
+        dispose();
+        new Inicio().setVisible(true);
     }//GEN-LAST:event_botonAgregarPersonaActionPerformed
 
     private void botonRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegresarActionPerformed
@@ -249,7 +253,10 @@ public class InsertarPersonas extends javax.swing.JFrame {
     }//GEN-LAST:event_botonAgregarPersona1ActionPerformed
 
     private void botonRegresar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegresar1ActionPerformed
-        // TODO add your handling code here:
+        dispose();
+
+        // Crear una nueva instancia de la clase Inicio y hacerla visible
+        new Inicio().setVisible(true);
     }//GEN-LAST:event_botonRegresar1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

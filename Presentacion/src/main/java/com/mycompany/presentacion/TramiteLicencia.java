@@ -10,13 +10,17 @@ import DAOS.PersonaDAO;
 import DAOS.LicenciaDAO;
 import dto.NuevoLicenciaDTO;
 import entidadesJPA.Licencia;
+import entidadesJPA.Persona;
+import entidadesJPA.Tramite;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.ZoneId;
-import java.util.Calendar;
+import java.time.LocalDate;
 import java.util.Date;
+import javax.persistence.EntityManager;
 import javax.swing.JOptionPane;
+import negocio.ConsultaPersonaBO;
 import negocio.RegistroLicenciaBO;
 
 public class TramiteLicencia extends javax.swing.JFrame {
@@ -30,20 +34,19 @@ public class TramiteLicencia extends javax.swing.JFrame {
     private String tiempoVigencia;
     private boolean tieneDiscapacidad;
     private RegistroLicenciaBO registroLicenciaBO;
+    private EntityManager entityManager;
 
     /**
      *
      * @author diana (Modificaciones: Antonio)
-     * 
+     *
      */
     public TramiteLicencia() {
         initComponents();
-        ILicenciaDAO licenciaDAO = new LicenciaDAO(); // Reemplaza LicenciaDAO con la implementación real
-        IPersonaDAO personaDAO = new PersonaDAO(); // Reemplaza PersonaDAO con la implementación real
-        
-        registroLicenciaBO = new RegistroLicenciaBO(licenciaDAO, personaDAO);
+        ILicenciaDAO licenciaDAO = new LicenciaDAO();
+        IPersonaDAO personaDAO = new PersonaDAO();
 
-      
+        registroLicenciaBO = new RegistroLicenciaBO(licenciaDAO, personaDAO);
 
         // ActionListener para el BotonNombre
         TextFieldNombre.addActionListener(new ActionListener() {
@@ -85,8 +88,8 @@ public class TramiteLicencia extends javax.swing.JFrame {
         TiempoVigencia.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                tiempoVigencia = (String) TiempoVigencia.getSelectedItem();
-                actualizarCosto(); // Llamar al método actualizarCosto() cuando cambia la selección
+                tiempoVigencia = TiempoVigencia.getSelectedItem().toString();
+                actualizarCosto(); // Call the actualizarCosto() method when the selection changes
             }
         });
 
@@ -341,7 +344,10 @@ public class TramiteLicencia extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -391,88 +397,72 @@ public class TramiteLicencia extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_RegresarActionPerformed
 
+    private EntityManager obtenerEntityManager() {
+        return entityManager;
+    }
+
     private void RealizarTramiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RealizarTramiteActionPerformed
-        // Verificar si algún campo está vacío
-        if (TextFieldRFC.getText().isEmpty() || TextFieldNombre.getText().isEmpty() || TextFieldAPaterno.getText().isEmpty() || TextFieldAMaterno.getText().isEmpty() || TextFieldTelefono.getText().isEmpty() || JDCNacimiento.getDate() == null || TiempoVigencia.getSelectedItem() == null || Discapacidad.getSelectedItem() == null) {
-            // Mostrar mensaje de error
-            JOptionPane.showMessageDialog(null, "No se han llenado todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
-        } else {
-            // Validar la longitud del número de teléfono
-            String telefono = TextFieldTelefono.getText().trim();
-            if (telefono.length() != 10) {
-                JOptionPane.showMessageDialog(null, "El número de teléfono debe tener 10 dígitos.", "Error", JOptionPane.ERROR_MESSAGE);
-                TextFieldTelefono.setText(""); // Limpiar el campo de texto
-                TextFieldTelefono.requestFocus(); // Poner el foco en el campo de texto para que el usuario pueda corregirlo
-                return; // Salir del método si la validación del teléfono falla
-            }
+        // Validar que se haya seleccionado un RFC
+        EntityManager entityManager = obtenerEntityManager();
+        String RFCtexto = TextFieldRFC.getText();
+        // Asegurémonos de que rfc se haya establecido correctamente
+        System.out.println("RFC seleccionado: " + RFCtexto);
 
-            // Crear una instancia de NuevoLicenciaDTO con los datos necesarios
+        if (RFCtexto == null || RFCtexto.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Seleccione un RFC válido.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Verificar si el RFC existe en la base de datos utilizando ConsultaPersonaBO
+        ConsultaPersonaBO consultaPersonaBO = new ConsultaPersonaBO();
+        Persona persona = consultaPersonaBO.obtenerPersonaPorRFC(RFCtexto);
+
+        if (persona == null) {
+            JOptionPane.showMessageDialog(null, "El RFC seleccionado no existe en la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Calcular el costo de la licencia
+        int costoFinal = Integer.parseInt(TextFieldCosto.getText());
+
+        // Mostrar el mensaje con el costo antes de confirmar el trámite
+        int opcion = JOptionPane.showConfirmDialog(null, "El costo del trámite es: $" + costoFinal + "\n¿Desea confirmar el trámite?", "Confirmar trámite", JOptionPane.YES_NO_OPTION);
+        if (opcion == JOptionPane.YES_OPTION) {
+            LicenciaDAO licenciaDAO = new LicenciaDAO();
+            String numeroLicencia = licenciaDAO.generarNumeroLicencia();
             NuevoLicenciaDTO nuevoLicenciaDTO = new NuevoLicenciaDTO();
-            nuevoLicenciaDTO.setNumeroLicencia(TextFieldRFC.getText()); // Aquí deberías establecer el número de licencia adecuado
+            nuevoLicenciaDTO.setNumeroLicencia(numeroLicencia); // Generar un número de licencia
+            nuevoLicenciaDTO.setVigencia(LocalDate.now().plusYears(Integer.parseInt(tiempoVigencia.split(" ")[0]))); // Calcular la vigencia a partir de la fecha actual
+            nuevoLicenciaDTO.setCosto(costoFinal);
+            nuevoLicenciaDTO.setFechaExpedicion(LocalDate.now());
+            nuevoLicenciaDTO.setIdPersona(persona.getId());
 
-            // Convertir la duración de la vigencia seleccionada en años
-            String duracionVigenciaTexto = (String) TiempoVigencia.getSelectedItem();
-            int duracionVigencia = Integer.parseInt(duracionVigenciaTexto.split(" ")[0]);
+            // Registrar la licencia utilizando el método registrarLicencia de registroLicenciaBO
+            Licencia licenciaRegistrada = registroLicenciaBO.registrarLicencia(nuevoLicenciaDTO);
 
-            // Calcular la fecha de expedición
-            Date fechaExpedicion = JDCNacimiento.getDate();
+            Tramite nuevoTramite = new Tramite();
+            nuevoTramite.setFechaTramite(new Date());
+            nuevoTramite.setTipoTramite("Nuevo");
+            nuevoTramite.setCosto(costoFinal);
+            nuevoTramite.setPersona(persona);
 
-            // Calcular la fecha de vencimiento sumando la duración de la vigencia a la fecha de expedición
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(fechaExpedicion);
-            calendar.add(Calendar.YEAR, duracionVigencia);
+            // Persistir el nuevo tramite en la base de datos
+            entityManager.getTransaction().begin();
+            entityManager.persist(nuevoTramite);
+            entityManager.getTransaction().commit();
 
-            // Establecer la fecha de expedición y la fecha de vencimiento en el objeto nuevoLicenciaDTO
-            nuevoLicenciaDTO.setFechaExpedicion(fechaExpedicion.toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-            nuevoLicenciaDTO.setVigencia(new java.sql.Date(calendar.getTimeInMillis()).toLocalDate());
-
-            // Llamar al método registrarLicencia pasando el nuevoLicenciaDTO
-            Licencia licencia = registroLicenciaBO.registrarLicencia(nuevoLicenciaDTO);
-
-            // Mostrar el mensaje con el costo antes de confirmar el trámite
-            JOptionPane.showMessageDialog(null, "El costo del trámite es: $" + licencia.getCosto() + "\nTrámite realizado con éxito");
+            // Mostrar mensaje de éxito
+            JOptionPane.showMessageDialog(null, "Trámite realizado con éxito. Número de licencia: " + licenciaRegistrada.getNumeroLicencia());
 
             // Cerrar la ventana actual (TramiteLicencia)
             dispose();
 
+            // Crear una nueva instancia de la clase Inicio y hacerla visible
             new Inicio().setVisible(true);
         }
+
     }//GEN-LAST:event_RealizarTramiteActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TramiteLicencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TramiteLicencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TramiteLicencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TramiteLicencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new TramiteLicencia().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> Discapacidad;

@@ -19,4 +19,6 @@ public interface ILicenciaDAO {
     void actualizarLicencia(Licencia licencia);
 
     void eliminarLicencia(Long id);
+    
+    String generarNumeroLicencia();
 }

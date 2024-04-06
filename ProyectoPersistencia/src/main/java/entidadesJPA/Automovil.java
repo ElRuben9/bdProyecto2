@@ -5,6 +5,7 @@
 package entidadesJPA;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -39,10 +40,19 @@ public class Automovil implements Serializable {
     @OneToMany(mappedBy = "automovil", cascade = CascadeType.ALL)
     private List<Placa> placas;
 
+    
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "fecha_emision")
+    private Date fechaEmision;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "fecha_recepcion")
+    private Date fechaRecepcion;
+
     public Automovil() {
     }
 
-    public Automovil(Long id, String numeroSerie, String marca, String linea, String color, int modelo, List<Placa> placas, Licencia licencia) {
+    public Automovil(Long id, String numeroSerie, String marca, String linea, String color, int modelo, List<Placa> placas, Date fechaEmision, Date fechaRecepcion) {
         this.id = id;
         this.numeroSerie = numeroSerie;
         this.marca = marca;
@@ -50,18 +60,39 @@ public class Automovil implements Serializable {
         this.color = color;
         this.modelo = modelo;
         this.placas = placas;
-
+        this.fechaEmision = fechaEmision;
+        this.fechaRecepcion = fechaRecepcion;
     }
 
-    public Automovil(String numeroSerie, String marca, String linea, String color, int modelo, List<Placa> placas, Licencia licencia) {
+    public Automovil(String numeroSerie, String marca, String linea, String color, int modelo, List<Placa> placas, Date fechaEmision, Date fechaRecepcion) {
         this.numeroSerie = numeroSerie;
         this.marca = marca;
         this.linea = linea;
         this.color = color;
         this.modelo = modelo;
         this.placas = placas;
-
+        this.fechaEmision = fechaEmision;
+        this.fechaRecepcion = fechaRecepcion;
     }
+    
+
+    public Date getFechaEmision() {
+        return fechaEmision;
+    }
+
+    public void setFechaEmision(Date fechaEmision) {
+        this.fechaEmision = fechaEmision;
+    }
+
+    public Date getFechaRecepcion() {
+        return fechaRecepcion;
+    }
+
+    public void setFechaRecepcion(Date fechaRecepcion) {
+        this.fechaRecepcion = fechaRecepcion;
+    }
+    
+    
 
     public Long getId() {
         return id;

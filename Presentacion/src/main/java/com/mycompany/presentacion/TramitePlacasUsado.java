@@ -4,12 +4,20 @@
  */
 package com.mycompany.presentacion;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import entidadesJPA.Automovil;
+import DAOS.AutomovilDAO;
+import DAOS.PlacaDAO;
+import DAOS.TramiteDAO;
+import entidadesJPA.Licencia;
+import entidadesJPA.Persona;
+import entidadesJPA.Placa;
+import entidadesJPA.Tramite;
+import java.util.Date;
+import java.util.List;
+import java.util.Random;
+import javax.persistence.EntityManager;
 import javax.swing.JOptionPane;
+import negocio.LicenciaVigenteBO;
 
 /**
  *
@@ -17,93 +25,14 @@ import javax.swing.JOptionPane;
  */
 public class TramitePlacasUsado extends javax.swing.JFrame {
 
-    /**
-     * Creates new form TramiteLicenciaUsado
-     */
-    // Variable para almacenar los datos
-    private String datosIngresados;
-
-// Método para guardar los datos en un archivo de texto
-    private void guardarDatosEnArchivo(String datos) {
-    try {
-        FileWriter fileWriter = new FileWriter("datos_placas_usado.txt");
-        BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-        bufferedWriter.write(datos);
-        bufferedWriter.close();
-    } catch (IOException e) {
-        e.printStackTrace();
-    }
-   }
+    private EntityManager entityManager;
+    private AutomovilDAO automovilDAO;
+    private PlacaDAO placaDAO;
 
     public TramitePlacasUsado() {
         initComponents();
-        // Agregar ActionListener al botón Regresar
-        Regresar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Crear instancia del JFrame TramitePlacas
-                TramitePlacas tramitePlacas = new TramitePlacas();
-                // Hacer visible la instancia creada
-                tramitePlacas.setVisible(true);
-                // Cerrar la ventana actual (TramitePlacasNuevo)
-                dispose();
-            }
-        });
-        // Agregar ActionListener al botón Realizar Tramite
-     RealizarTramite.addActionListener(new ActionListener() {
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        // Capturar los datos ingresados en las variables correspondientes
-        String numPlaca = NumPlaca.getText();
-        String numSerie = NumSerie.getText();
-        String marca = Marca.getText();
-        String linea = Linea.getText();
-        String costo = Costo.getText();
-
-        // Crear una cadena con los datos ingresados
-        datosIngresados = "Número de Placa: " + numPlaca + "\n" +
-                         "Número de Serie: " + numSerie + "\n" +
-                         "Marca: " + marca + "\n" +
-                         "Línea: " + linea + "\n" +
-                         "Costo: " + costo + "\n";
-
-        // Llamar al método para guardar los datos en un archivo de texto
-        guardarDatosEnArchivo(datosIngresados);
-
-        // Mostrar un mensaje de éxito
-        JOptionPane.showMessageDialog(null, "Datos guardados correctamente en datos_placas_usado.txt");
-
-        // Cerrar la ventana actual (TramitePlacasUsado)
-        dispose();
-    }
-    });
-    // Agregar ActionListener al botón Realizar Tramite
-    RealizarTramite.addActionListener(new ActionListener() {
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        // Capturar los datos ingresados en las variables correspondientes
-        String numPlaca = NumPlaca.getText();
-        String numSerie = NumSerie.getText();
-        String marca = Marca.getText();
-        String linea = Linea.getText();
-        String costo = Costo.getText();
-
-        // Crear una cadena con los datos ingresados
-        datosIngresados = "Número de Placa: " + numPlaca + "\n" +
-                         "Número de Serie: " + numSerie + "\n" +
-                         "Marca: " + marca + "\n" +
-                         "Línea: " + linea + "\n" +
-                         "Costo: " + costo + "\n";
-
-        // Llamar al método para guardar los datos en un archivo de texto
-        guardarDatosEnArchivo(datosIngresados);
-
-        // Mostrar un mensaje de éxito
-        JOptionPane.showMessageDialog(null, "Datos guardados correctamente en datos_placas_usado.txt");
-    }
-    });
-
-        
+        automovilDAO = new AutomovilDAO();
+        placaDAO = new PlacaDAO();
     }
 
     /**
@@ -119,19 +48,21 @@ public class TramitePlacasUsado extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
+        txtNumPlaca = new javax.swing.JLabel();
         Linea = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
+        botonBuscar = new javax.swing.JButton();
+        txtNumSerie = new javax.swing.JLabel();
         NumPlaca = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
+        txtMarca = new javax.swing.JLabel();
         NumSerie = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
+        txtLinea = new javax.swing.JLabel();
         Marca = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
+        txtCosto = new javax.swing.JLabel();
         Costo = new javax.swing.JTextField();
-        RealizarTramite = new javax.swing.JButton();
-        Regresar = new javax.swing.JButton();
+        botonRealizarTramite = new javax.swing.JButton();
+        botonRegresar = new javax.swing.JButton();
+        NumLicencia = new javax.swing.JTextField();
+        txtLinea1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -151,21 +82,26 @@ public class TramitePlacasUsado extends javax.swing.JFrame {
         jTextField1.setBackground(new java.awt.Color(218, 184, 87));
         jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 600, 60));
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel3.setText("Num. Placa:");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, 90, 30));
-        jPanel1.add(Linea, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 310, 270, 30));
+        txtNumPlaca.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txtNumPlaca.setText("Num. Placa:");
+        jPanel1.add(txtNumPlaca, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, 90, 30));
+        jPanel1.add(Linea, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 270, 270, 30));
 
-        jButton1.setBackground(new java.awt.Color(160, 11, 43));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Buscar");
-        jButton1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 130, 110, 30));
+        botonBuscar.setBackground(new java.awt.Color(160, 11, 43));
+        botonBuscar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        botonBuscar.setForeground(new java.awt.Color(255, 255, 255));
+        botonBuscar.setText("Buscar");
+        botonBuscar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        botonBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonBuscarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(botonBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 130, 110, 30));
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel4.setText("Num. Serie:");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 210, 90, 20));
+        txtNumSerie.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txtNumSerie.setText("Num. Serie:");
+        jPanel1.add(txtNumSerie, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 170, 90, 20));
 
         NumPlaca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -174,34 +110,49 @@ public class TramitePlacasUsado extends javax.swing.JFrame {
         });
         jPanel1.add(NumPlaca, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 130, 140, 30));
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel5.setText("Marca: ");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 260, 90, 30));
-        jPanel1.add(NumSerie, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 210, 270, 30));
+        txtMarca.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txtMarca.setText("Marca: ");
+        jPanel1.add(txtMarca, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 220, 90, 30));
+        jPanel1.add(NumSerie, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 170, 270, 30));
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel6.setText("Linea:");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 310, 90, 30));
-        jPanel1.add(Marca, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 260, 270, 30));
+        txtLinea.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txtLinea.setText("Linea:");
+        jPanel1.add(txtLinea, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 270, 90, 30));
+        jPanel1.add(Marca, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 220, 270, 30));
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel7.setText("Costo:");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 380, -1, -1));
+        txtCosto.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txtCosto.setText("Costo:");
+        jPanel1.add(txtCosto, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 380, -1, -1));
         jPanel1.add(Costo, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 380, -1, -1));
 
-        RealizarTramite.setBackground(new java.awt.Color(160, 11, 43));
-        RealizarTramite.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        RealizarTramite.setForeground(new java.awt.Color(255, 255, 255));
-        RealizarTramite.setText("Realizar Tramite");
-        RealizarTramite.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanel1.add(RealizarTramite, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 380, 180, 30));
+        botonRealizarTramite.setBackground(new java.awt.Color(160, 11, 43));
+        botonRealizarTramite.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        botonRealizarTramite.setForeground(new java.awt.Color(255, 255, 255));
+        botonRealizarTramite.setText("Realizar Tramite");
+        botonRealizarTramite.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        botonRealizarTramite.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonRealizarTramiteActionPerformed(evt);
+            }
+        });
+        jPanel1.add(botonRealizarTramite, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 380, 180, 30));
 
-        Regresar.setBackground(new java.awt.Color(160, 11, 43));
-        Regresar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        Regresar.setForeground(new java.awt.Color(255, 255, 255));
-        Regresar.setText("Regresar");
-        Regresar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanel1.add(Regresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 440, 150, 30));
+        botonRegresar.setBackground(new java.awt.Color(160, 11, 43));
+        botonRegresar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        botonRegresar.setForeground(new java.awt.Color(255, 255, 255));
+        botonRegresar.setText("Regresar");
+        botonRegresar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        botonRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonRegresarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(botonRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 440, 150, 30));
+        jPanel1.add(NumLicencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 320, 270, 30));
+
+        txtLinea1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txtLinea1.setText("Num. Licencia:");
+        jPanel1.add(txtLinea1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 320, 110, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -221,59 +172,135 @@ public class TramitePlacasUsado extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_NumPlacaActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TramitePlacasUsado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TramitePlacasUsado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TramitePlacasUsado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TramitePlacasUsado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed
+        String numSerie = NumSerie.getText();
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new TramitePlacasUsado().setVisible(true);
+        // Obtener la lista de automóviles que coinciden con el número de serie
+        List<Automovil> automoviles = automovilDAO.obtenerAutomovilPorNumeroSerieLista(numSerie);
+
+        if (!automoviles.isEmpty()) {
+            // Crear un arreglo de cadenas para almacenar la información de los automóviles
+            String[] opciones = new String[automoviles.size()];
+            int i = 0;
+            for (Automovil automovil : automoviles) {
+                opciones[i++] = automovil.toString(); // Suponiendo que tienes un método toString en la clase Automovil para mostrar la información relevante
             }
-        });
+
+            // Mostrar los resultados en un JOptionPane de tipo lista
+            String seleccion = (String) JOptionPane.showInputDialog(null, "Selecciona un automóvil:", "Automóviles encontrados",
+                    JOptionPane.DEFAULT_OPTION, null, opciones, opciones[0]);
+
+            // Si se selecciona un automóvil, mostrar sus detalles en los campos correspondientes
+            if (seleccion != null) {
+                // Aquí puedes realizar las acciones necesarias para mostrar los detalles del automóvil seleccionado
+            }
+        } else {
+            // Si no se encontró ningún automóvil, mostrar un mensaje de error
+            JOptionPane.showMessageDialog(this, "No se encontró ningún automóvil con el número de serie proporcionado.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_botonBuscarActionPerformed
+
+    private void botonRealizarTramiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRealizarTramiteActionPerformed
+        // Obtener los datos ingresados por el usuario
+        String numSerie = NumSerie.getText();
+        EntityManager entityManager = obtenerEntityManager();
+
+        Automovil automovil = automovilDAO.obtenerAutomovilPorNumeroSerie(numSerie);
+        if (automovil == null) {
+            JOptionPane.showMessageDialog(this, "El automóvil no está registrado en el sistema.");
+            return;
+        }
+
+        // Verificar la licencia vigente del usuario
+        String numLicencia = NumLicencia.getText();
+        LicenciaVigenteBO licenciaBO = new LicenciaVigenteBO(entityManager); // Necesitas implementar esta clase
+        Licencia licencia = licenciaBO.obtenerLicenciaVigente(numLicencia);
+
+        // Crear una instancia de Tramite
+        Tramite tramite = new Tramite();
+        tramite.setFechaTramite(new Date());
+        tramite.setCosto(1000.00f);
+        Persona persona = licencia.getPersona();
+        tramite.setPersona(persona);
+        TramiteDAO tramiteDAO = new TramiteDAO();
+        tramiteDAO.guardarTramite(tramite);
+
+        if (licencia == null) {
+            JOptionPane.showMessageDialog(this, "La licencia ingresada no es válida.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Crear una nueva instancia de Placa y establecer los datos necesarios
+        Placa nuevaPlaca = new Placa();
+        nuevaPlaca.setNumeroPlaca(generarNumeroPlacas()); // Generar un nuevo número de placa
+        nuevaPlaca.setFechaEmision(new Date()); // Establecer la fecha de emisión como la fecha actual
+        nuevaPlaca.setCosto(1000.00f);
+
+        // Realizar el trámite de placas para el automóvil
+        placaDAO.guardarPlaca(nuevaPlaca);
+
+        // Mostrar un mensaje de éxito al usuario
+        JOptionPane.showMessageDialog(this, "El trámite de placas se realizó exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+
+        // Limpiar los campos de la interfaz o realizar otras acciones según sea necesario
+        limpiarCampos();
+    }//GEN-LAST:event_botonRealizarTramiteActionPerformed
+
+    private void botonRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegresarActionPerformed
+
+        dispose();
+
+        // Crear una nueva instancia de la clase Inicio y hacerla visible
+        new Inicio().setVisible(true);
+    }//GEN-LAST:event_botonRegresarActionPerformed
+
+    private EntityManager obtenerEntityManager() {
+        return entityManager;
+    }
+
+    private void limpiarCampos() {
+        // Código para limpiar los campos de la interfaz después de realizar el trámite
+        NumPlaca.setText("");
+        NumSerie.setText("");
+        Marca.setText("");
+        Linea.setText("");
+        // También puedes limpiar otros campos si es necesario
+    }
+
+    private String generarNumeroPlacas() {
+        Random random = new Random();
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < 3; i++) {
+            char c = (char) (random.nextInt(26) + 'A');
+            sb.append(c);
+        }
+        sb.append("-");
+        for (int i = 0; i < 3; i++) {
+            int digit = random.nextInt(10);
+            sb.append(digit);
+        }
+        return sb.toString();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Costo;
     private javax.swing.JTextField Linea;
     private javax.swing.JTextField Marca;
+    private javax.swing.JTextField NumLicencia;
     private javax.swing.JTextField NumPlaca;
     private javax.swing.JTextField NumSerie;
-    private javax.swing.JButton RealizarTramite;
-    private javax.swing.JButton Regresar;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton botonBuscar;
+    private javax.swing.JButton botonRealizarTramite;
+    private javax.swing.JButton botonRegresar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel txtCosto;
+    private javax.swing.JLabel txtLinea;
+    private javax.swing.JLabel txtLinea1;
+    private javax.swing.JLabel txtMarca;
+    private javax.swing.JLabel txtNumPlaca;
+    private javax.swing.JLabel txtNumSerie;
     // End of variables declaration//GEN-END:variables
 }

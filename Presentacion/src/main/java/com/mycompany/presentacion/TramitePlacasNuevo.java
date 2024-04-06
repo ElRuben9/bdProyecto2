@@ -4,7 +4,20 @@
  */
 package com.mycompany.presentacion;
 
-
+import DAOS.AutomovilDAO;
+import DAOS.PlacaDAO;
+import entidadesJPA.Automovil;
+import entidadesJPA.Licencia;
+import entidadesJPA.Persona;
+import entidadesJPA.Placa;
+import entidadesJPA.Tramite;
+import java.util.Date;
+import java.util.Random;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.swing.JOptionPane;
+import negocio.LicenciaVigenteBO;
 
 /**
  *
@@ -15,11 +28,20 @@ public class TramitePlacasNuevo extends javax.swing.JFrame {
     /**
      * Creates new form TramitePlacasNuevo
      */
-     private String datosIngresados;
-   
+    private EntityManager entityManager;
+    private AutomovilDAO automovilDAO;
+    private EntityManagerFactory entityManagerFactory;
+
     public TramitePlacasNuevo() {
         initComponents();
-  
+        automovilDAO = new AutomovilDAO();
+
+        // Inicializar el EntityManagerFactory
+        entityManagerFactory = Persistence.createEntityManagerFactory("ConexionPU");
+
+        // Obtener el EntityManager
+        entityManager = entityManagerFactory.createEntityManager();
+
     }
 
     /**
@@ -49,6 +71,8 @@ public class TramitePlacasNuevo extends javax.swing.JFrame {
         costo = new javax.swing.JTextField();
         botonRegresar = new javax.swing.JButton();
         botonRealizarTramite = new javax.swing.JButton();
+        numLicencia = new javax.swing.JTextField();
+        txtNumLicencia = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -105,6 +129,11 @@ public class TramitePlacasNuevo extends javax.swing.JFrame {
         botonRegresar.setForeground(new java.awt.Color(255, 255, 255));
         botonRegresar.setText("Regresar");
         botonRegresar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        botonRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonRegresarActionPerformed(evt);
+            }
+        });
         jPanel1.add(botonRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 490, 180, 30));
 
         botonRealizarTramite.setBackground(new java.awt.Color(160, 11, 43));
@@ -112,7 +141,17 @@ public class TramitePlacasNuevo extends javax.swing.JFrame {
         botonRealizarTramite.setForeground(new java.awt.Color(255, 255, 255));
         botonRealizarTramite.setText("Realizar Tramite");
         botonRealizarTramite.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        botonRealizarTramite.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonRealizarTramiteActionPerformed(evt);
+            }
+        });
         jPanel1.add(botonRealizarTramite, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 440, 180, 30));
+        jPanel1.add(numLicencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 140, 280, 40));
+
+        txtNumLicencia.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txtNumLicencia.setText("Num. Licencia");
+        jPanel1.add(txtNumLicencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(435, 150, 110, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -128,10 +167,112 @@ public class TramitePlacasNuevo extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void botonRealizarTramiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRealizarTramiteActionPerformed
+
+        String numeroSerie = numSerie.getText();
+        String marcaAutomovil = marca.getText();
+        String lineaAutomovil = linea.getText();
+        String colorAutomovil = color.getText();
+        int modeloAutomovil = Integer.parseInt(modelo.getText());
+        String numeroLicencia = numLicencia.getText(); // Obtener número de licencia ingresado
+
+        // Obtener una instancia de EntityManager (debe ser inicializada previamente)
+        EntityManager entityManager = obtenerEntityManager();
+
+        if (entityManager != null) {
+            // Crear instancia de LicenciaVigenteBO
+            LicenciaVigenteBO licenciaBO = new LicenciaVigenteBO(entityManager);
+
+            // Obtener la licencia vigente
+            Licencia licencia = licenciaBO.obtenerLicenciaVigente(numeroLicencia);
+
+            // Verificar si la licencia obtenida es nula
+            if (licencia != null) {
+                // Obtener la persona asociada a la licencia
+
+                Persona persona = licencia.getPersona();
+                if (persona != null) {
+                    // Crear instancia de Automovil y establecer sus atributos
+                    Automovil automovil = new Automovil();
+                    automovil.setNumeroSerie(numeroSerie);
+                    automovil.setMarca(marcaAutomovil);
+                    automovil.setLinea(lineaAutomovil);
+                    automovil.setColor(colorAutomovil);
+                    automovil.setModelo(modeloAutomovil);
+
+                    PlacaDAO placaDAO = new PlacaDAO();
+                    placaDAO.desactivarPlacasActivas(automovil);
+
+                    // Generar número de placas alfanumérico
+                    String numeroPlacas = generarNumeroPlacas();
+
+                    AutomovilDAO auto = new AutomovilDAO();
+                    auto.guardarAutomovil(automovil);
+
+                    // Crear una nueva instancia de Placa y establecer sus atributos
+                    Placa nuevaPlaca = new Placa();
+                    nuevaPlaca.setNumeroPlaca(numeroPlacas);
+                    nuevaPlaca.setFechaEmision(new Date());
+                    nuevaPlaca.setEstado("Activo");
+                    nuevaPlaca.setAutomovil(automovil);
+                    nuevaPlaca.setCosto(1500.00f);
+                    PlacaDAO placa = new PlacaDAO();
+                    placa.guardarPlaca(nuevaPlaca);
+
+                    // Crear una nueva instancia de Tramite y establecer su automovil
+                    Tramite nuevoTramite = new Tramite();
+                    nuevoTramite.setFechaTramite(new Date());
+                    nuevoTramite.setTipoTramite("Nuevo");
+                    nuevoTramite.setCosto(1500.00f);
+                    nuevoTramite.setPersona(persona);
+
+                    // Persistir el nuevo tramite en la base de datos
+                    entityManager.getTransaction().begin();
+                    entityManager.persist(nuevoTramite);
+                    entityManager.getTransaction().commit();
+
+                    JOptionPane.showMessageDialog(this, "Trámite realizado con éxito.");
+                } else {
+                    JOptionPane.showMessageDialog(this, "La licencia no tiene una persona asociada.");
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "No se encontró una licencia vigente en el sistema.");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Error al obtener el EntityManager.");
+        }
+    }//GEN-LAST:event_botonRealizarTramiteActionPerformed
+
+    private void botonRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegresarActionPerformed
+
+        dispose();
+
+        // Crear una nueva instancia de la clase Inicio y hacerla visible
+        new Inicio().setVisible(true);
+    }//GEN-LAST:event_botonRegresarActionPerformed
+
+    private EntityManager obtenerEntityManager() {
+        return entityManager;
+    }
+
+    private String generarNumeroPlacas() {
+        Random random = new Random();
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < 3; i++) {
+            char c = (char) (random.nextInt(26) + 'A');
+            sb.append(c);
+        }
+        sb.append("-");
+        for (int i = 0; i < 3; i++) {
+            int digit = random.nextInt(10);
+            sb.append(digit);
+        }
+        return sb.toString();
+    }
+
     /**
      * @param args the command line arguments
      */
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonRealizarTramite;
@@ -145,12 +286,14 @@ public class TramitePlacasNuevo extends javax.swing.JFrame {
     private javax.swing.JTextField linea;
     private javax.swing.JTextField marca;
     private javax.swing.JTextField modelo;
+    private javax.swing.JTextField numLicencia;
     private javax.swing.JTextField numSerie;
     private javax.swing.JLabel txtColor;
     private javax.swing.JLabel txtCosto;
     private javax.swing.JLabel txtLinea;
     private javax.swing.JLabel txtMarca;
     private javax.swing.JLabel txtModelo;
+    private javax.swing.JLabel txtNumLicencia;
     private javax.swing.JLabel txtNumSerie;
     // End of variables declaration//GEN-END:variables
 }

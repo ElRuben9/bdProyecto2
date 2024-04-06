@@ -13,6 +13,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 public class PersonaDAO implements IPersonaDAO {
 
@@ -21,6 +22,7 @@ public class PersonaDAO implements IPersonaDAO {
 
     public PersonaDAO() {
         emf = Persistence.createEntityManagerFactory("ConexionPU"); 
+        entityManager = emf.createEntityManager(); // Inicializar entityManager
     }
 
     @Override
@@ -47,6 +49,19 @@ public class PersonaDAO implements IPersonaDAO {
         return entityManager.find(Persona.class, id);
     }
 
+    public boolean existePersonaConRFC(String rfc) {
+        EntityManager entityManager = emf.createEntityManager();
+        try {
+            // Consulta para verificar si existe una persona con el RFC dado
+            Query query = entityManager.createQuery("SELECT COUNT(p) FROM Persona p WHERE p.RFC = :rfc");
+            query.setParameter("rfc", rfc);
+            Long count = (Long) query.getSingleResult();
+            return count > 0;
+        } finally {
+            entityManager.close();
+        }
+    }
+    
     @Override
     public void actualizarPersona(Persona persona) {
         EntityTransaction tx = null;

@@ -24,7 +24,7 @@ import javax.persistence.Temporal;
 @Table(name = "licencia")
 public class Licencia implements Serializable {
 
-    @Column(name = "Numero_de_licencia", nullable = false, length = 9)
+    @Column(name = "Numero_de_licencia", nullable = false)
     private String numeroLicencia;
     @Column(name = "vigencia", nullable = false)
     private Date vigencia;

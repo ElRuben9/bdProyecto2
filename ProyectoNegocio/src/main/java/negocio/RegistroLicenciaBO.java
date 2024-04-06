@@ -29,10 +29,13 @@ public class RegistroLicenciaBO implements IRegistroLicenciaBO {
 
     @Override
     public Licencia registrarLicencia(NuevoLicenciaDTO nuevoLicenciaDTO) {
-        // Validar que los datos de la licencia no sean nulos
+       
         if (nuevoLicenciaDTO == null || nuevoLicenciaDTO.getNumeroLicencia() == null || nuevoLicenciaDTO.getVigencia() == null
                 || nuevoLicenciaDTO.getFechaExpedicion() == null || nuevoLicenciaDTO.getIdPersona() == null) {
-            System.out.println("Datos de la licencia inválidos.");
+            System.out.println("Número de licencia: " + nuevoLicenciaDTO.getNumeroLicencia());
+            System.out.println("Vigencia: " + nuevoLicenciaDTO.getVigencia());
+            System.out.println("Fecha de expedición: " + nuevoLicenciaDTO.getFechaExpedicion());
+            System.out.println("ID de persona: " + nuevoLicenciaDTO.getIdPersona());
             throw new IllegalArgumentException("Los datos de la licencia son inválidos.");
         }
 
@@ -42,7 +45,6 @@ public class RegistroLicenciaBO implements IRegistroLicenciaBO {
         System.out.println("Fecha de expedición: " + nuevoLicenciaDTO.getFechaExpedicion());
         System.out.println("ID de persona: " + nuevoLicenciaDTO.getIdPersona());
 
-        // Resto del código de registro de licencia...
         // Validar que la persona asociada a la licencia exista y tenga datos válidos
         Persona persona = personaDAO.obtenerPersonaPorId(nuevoLicenciaDTO.getIdPersona());
         if (persona == null || !validarDatosPersona(persona)) {
@@ -75,7 +77,7 @@ public class RegistroLicenciaBO implements IRegistroLicenciaBO {
     private boolean validarDatosPersona(Persona persona) {
         return persona.getRFC() != null && !persona.getRFC().isEmpty()
                 && persona.getNombre() != null && !persona.getNombre().isEmpty()
-                && persona.getFechaNacimiento() != null
+                && persona.getFechaNacimiento() != null && !persona.getFechaNacimiento().after(new Date())
                 && persona.getTelefono() != null && !persona.getTelefono().isEmpty();
     }
 
@@ -85,7 +87,6 @@ public class RegistroLicenciaBO implements IRegistroLicenciaBO {
     }
 
     private int calcularCostoLicencia(int duracionVigencia) {
-        // Definir los costos según la duración de la vigencia
         int costoLicencia = 0;
         switch (duracionVigencia) {
             case 1:
