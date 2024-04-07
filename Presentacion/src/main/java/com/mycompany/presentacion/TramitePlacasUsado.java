@@ -147,7 +147,7 @@ public class TramitePlacasUsado extends javax.swing.JFrame {
                 botonRegresarActionPerformed(evt);
             }
         });
-        jPanel1.add(botonRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 440, 150, 30));
+        jPanel1.add(botonRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 430, 150, 30));
         jPanel1.add(NumLicencia, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 320, 270, 30));
 
         txtLinea1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N

@@ -51,11 +51,7 @@
             <artifactId>mysql-connector-j</artifactId>
             <version>8.3.0</version>
         </dependency>
-        <dependency>
-            <groupId>com.mycompany.proyectonegocio</groupId>
-            <artifactId>ProyectoNegocio</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
+             
     </dependencies>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

@@ -4,6 +4,9 @@
  */
 package com.mycompany.presentacion;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 /**
  *
  * @author diana
@@ -15,7 +18,17 @@ public class Consultas extends javax.swing.JFrame {
      */
     public Consultas() {
         initComponents();
+        // ActionListener para el botón Regresar
+        Regresar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose(); // Cerrar la ventana actual (TramiteLicencia)
+                new Inicio().setVisible(true); // Crear una nueva instancia de la clase Inicio y hacerla visible
+            }
+        });
+        
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -36,6 +49,11 @@ public class Consultas extends javax.swing.JFrame {
         jTextField3 = new javax.swing.JTextField();
         jTextField4 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        Regresar = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        Resultados = new javax.swing.JTable();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        DetallesHistorial = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -74,6 +92,40 @@ public class Consultas extends javax.swing.JFrame {
         jButton1.setText("Buscar");
         jButton1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 250, 140, 30));
+
+        Regresar.setBackground(new java.awt.Color(160, 11, 43));
+        Regresar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        Regresar.setForeground(new java.awt.Color(255, 255, 255));
+        Regresar.setText("Regresar");
+        Regresar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel1.add(Regresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 490, 140, 30));
+
+        Resultados.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null},
+                {null},
+                {null}
+            },
+            new String [] {
+                "Resultados"
+            }
+        ));
+        jScrollPane2.setViewportView(Resultados);
+
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 290, -1, 80));
+
+        DetallesHistorial.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null},
+                {null}
+            },
+            new String [] {
+                "Detalles del historial"
+            }
+        ));
+        jScrollPane1.setViewportView(DetallesHistorial);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 400, 450, 80));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -125,12 +177,17 @@ public class Consultas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable DetallesHistorial;
+    private javax.swing.JButton Regresar;
+    private javax.swing.JTable Resultados;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;

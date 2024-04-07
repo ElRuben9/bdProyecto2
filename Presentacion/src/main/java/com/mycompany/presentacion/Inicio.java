@@ -18,8 +18,10 @@ public class Inicio extends javax.swing.JFrame {
      */
     public Inicio() {
         initComponents();
-        // Agregar ActionListener al botón TramiteLicencia
-        TramiteLicencia.addActionListener(new ActionListener() {
+       
+        
+         // Agregar ActionListener al botón TramiteLicencia
+       TramiteLicencia.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Crear instancia de la clase TramiteLicencia
@@ -98,6 +100,7 @@ public class Inicio extends javax.swing.JFrame {
         Consultas = new javax.swing.JToggleButton();
         Reportes = new javax.swing.JToggleButton();
         InsertarPersonas = new javax.swing.JToggleButton();
+        jToggleButton1 = new javax.swing.JToggleButton();
 
         jLabel1.setText("jLabel1");
 
@@ -166,6 +169,9 @@ public class Inicio extends javax.swing.JFrame {
         InsertarPersonas.setText("Insertar personas");
         InsertarPersonas.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel1.add(InsertarPersonas, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 400, 190, 50));
+
+        jToggleButton1.setText("jToggleButton1");
+        jPanel1.add(jToggleButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 190, 190, 50));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -238,5 +244,6 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JToggleButton jToggleButton1;
     // End of variables declaration//GEN-END:variables
 }

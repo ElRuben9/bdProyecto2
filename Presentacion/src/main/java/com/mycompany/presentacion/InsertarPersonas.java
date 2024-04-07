@@ -41,7 +41,6 @@ public class InsertarPersonas extends javax.swing.JFrame {
         RFC = new javax.swing.JTextField();
         Nombre = new javax.swing.JTextField();
         botonAgregarPersona = new javax.swing.JButton();
-        botonRegresar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
@@ -57,6 +56,7 @@ public class InsertarPersonas extends javax.swing.JFrame {
         botonRegresar1 = new javax.swing.JButton();
         curp = new javax.swing.JTextField();
         txtCurp = new javax.swing.JLabel();
+        botonRegresar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -97,18 +97,6 @@ public class InsertarPersonas extends javax.swing.JFrame {
             }
         });
         jPanel1.add(botonAgregarPersona, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 390, 180, -1));
-
-        botonRegresar.setBackground(new java.awt.Color(160, 11, 43));
-        botonRegresar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        botonRegresar.setForeground(new java.awt.Color(255, 255, 255));
-        botonRegresar.setText("Regresar");
-        botonRegresar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        botonRegresar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonRegresarActionPerformed(evt);
-            }
-        });
-        jPanel1.add(botonRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 450, 180, 30));
 
         jPanel2.setBackground(new java.awt.Color(101, 118, 136));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -168,12 +156,24 @@ public class InsertarPersonas extends javax.swing.JFrame {
                 botonRegresar1ActionPerformed(evt);
             }
         });
-        jPanel2.add(botonRegresar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 450, 180, 30));
+        jPanel2.add(botonRegresar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 430, 180, 30));
         jPanel2.add(curp, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 270, 280, 30));
 
         txtCurp.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         txtCurp.setText("CURP:");
         jPanel2.add(txtCurp, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 270, -1, -1));
+
+        botonRegresar.setBackground(new java.awt.Color(160, 11, 43));
+        botonRegresar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        botonRegresar.setForeground(new java.awt.Color(255, 255, 255));
+        botonRegresar.setText("Regresar");
+        botonRegresar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        botonRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonRegresarActionPerformed(evt);
+            }
+        });
+        jPanel2.add(botonRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 430, 180, 30));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 

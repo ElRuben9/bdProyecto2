@@ -112,7 +112,7 @@ public class TramitePlacas extends javax.swing.JFrame {
         Regresar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         Regresar.setForeground(new java.awt.Color(255, 255, 255));
         Regresar.setText("Regresar");
-        jPanel1.add(Regresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 440, 140, 30));
+        jPanel1.add(Regresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 400, 140, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
