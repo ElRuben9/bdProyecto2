@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author diana
+ * @author antonio
  */
 public class InsertarPersonas extends javax.swing.JFrame {
 
@@ -30,7 +30,7 @@ public class InsertarPersonas extends javax.swing.JFrame {
     }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
@@ -56,7 +56,6 @@ public class InsertarPersonas extends javax.swing.JFrame {
         botonRegresar1 = new javax.swing.JButton();
         curp = new javax.swing.JTextField();
         txtCurp = new javax.swing.JLabel();
-        botonRegresar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -132,6 +131,12 @@ public class InsertarPersonas extends javax.swing.JFrame {
         jPanel2.add(Telefono1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 320, 280, 30));
         jPanel2.add(RFC1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 120, 280, 30));
         jPanel2.add(Nombre1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 170, 280, 30));
+
+        Nacimiento1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Nacimiento1ActionPerformed(evt);
+            }
+        });
         jPanel2.add(Nacimiento1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 220, 280, 30));
 
         botonAgregarPersona1.setBackground(new java.awt.Color(160, 11, 43));
@@ -156,24 +161,12 @@ public class InsertarPersonas extends javax.swing.JFrame {
                 botonRegresar1ActionPerformed(evt);
             }
         });
-        jPanel2.add(botonRegresar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 430, 180, 30));
+        jPanel2.add(botonRegresar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 450, 180, 30));
         jPanel2.add(curp, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 270, 280, 30));
 
         txtCurp.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         txtCurp.setText("CURP:");
         jPanel2.add(txtCurp, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 270, -1, -1));
-
-        botonRegresar.setBackground(new java.awt.Color(160, 11, 43));
-        botonRegresar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        botonRegresar.setForeground(new java.awt.Color(255, 255, 255));
-        botonRegresar.setText("Regresar");
-        botonRegresar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        botonRegresar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonRegresarActionPerformed(evt);
-            }
-        });
-        jPanel2.add(botonRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 430, 180, 30));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
@@ -189,13 +182,13 @@ public class InsertarPersonas extends javax.swing.JFrame {
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }// </editor-fold>                        
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {                                            
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }                                           
 
-    private void botonAgregarPersonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarPersonaActionPerformed
+    private void botonAgregarPersonaActionPerformed(java.awt.event.ActionEvent evt) {                                                    
         // Obtener los datos de los campos de texto y del JComboBox
         String rfc = RFC.getText();
         String nombreCompleto = Nombre.getText(); // Suponiendo que el campo Nombre contiene el nombre completo
@@ -238,28 +231,28 @@ public class InsertarPersonas extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "Persona agregada con éxito.");
         dispose();
         new Inicio().setVisible(true);
-    }//GEN-LAST:event_botonAgregarPersonaActionPerformed
+    }                                                   
 
-    private void botonRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegresarActionPerformed
+    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {                                            
         // TODO add your handling code here:
-    }//GEN-LAST:event_botonRegresarActionPerformed
+    }                                           
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void botonAgregarPersona1ActionPerformed(java.awt.event.ActionEvent evt) {                                                     
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }                                                    
 
-    private void botonAgregarPersona1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarPersona1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_botonAgregarPersona1ActionPerformed
-
-    private void botonRegresar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegresar1ActionPerformed
+    private void botonRegresar1ActionPerformed(java.awt.event.ActionEvent evt) {                                               
         dispose();
 
         // Crear una nueva instancia de la clase Inicio y hacerla visible
         new Inicio().setVisible(true);
-    }//GEN-LAST:event_botonRegresar1ActionPerformed
+    }                                              
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private void Nacimiento1ActionPerformed(java.awt.event.ActionEvent evt) {                                            
+        // TODO add your handling code here:
+    }                                           
+
+    // Variables declaration - do not modify                     
     private javax.swing.JTextField Nacimiento1;
     private javax.swing.JTextField Nombre;
     private javax.swing.JTextField Nombre1;
@@ -268,7 +261,6 @@ public class InsertarPersonas extends javax.swing.JFrame {
     private javax.swing.JTextField Telefono1;
     private javax.swing.JButton botonAgregarPersona;
     private javax.swing.JButton botonAgregarPersona1;
-    private javax.swing.JButton botonRegresar;
     private javax.swing.JButton botonRegresar1;
     private javax.swing.JTextField curp;
     private javax.swing.JLabel jLabel1;
@@ -284,5 +276,5 @@ public class InsertarPersonas extends javax.swing.JFrame {
     private javax.swing.JLabel txtRFC;
     private javax.swing.JLabel txtRFC1;
     private javax.swing.JLabel txtTelefono1;
-    // End of variables declaration//GEN-END:variables
+    // End of variables declaration                   
 }
