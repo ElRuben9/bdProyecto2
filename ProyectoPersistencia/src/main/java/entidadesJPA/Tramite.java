@@ -43,9 +43,21 @@ public class Tramite implements Serializable {
     @JoinColumn(name = "persona_id")
     private Persona persona;
 
+    
+    // Constructor por defecto de la clase Tramite
     public Tramite() {
     }
 
+    
+    
+    /**
+     * Constructor de la clase Tramite que inicializa todos los campos
+     * @param id El identificador único del Tramite
+     * @param fechaTramite La fecha en la que se realizó el Tramite
+     * @param tipoTramite El tipo de Tramite realizado
+     * @param costo El costo asociado al Tramite
+     * @param persona La Persona que realizó el Tramite
+     */
     public Tramite(Long id, Date fechaTramite, String tipoTramite, double costo, Persona persona) {
         this.id = id;
         this.fechaTramite = fechaTramite;
@@ -54,6 +66,9 @@ public class Tramite implements Serializable {
         this.persona = persona;
     }
 
+    
+    // Getters y Setters
+    //Metodo getter que devuelve el valor  y metodo setter que establece el valor 
     public Long getId() {
         return id;
     }

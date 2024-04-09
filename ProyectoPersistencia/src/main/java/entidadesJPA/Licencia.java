@@ -46,6 +46,17 @@ public class Licencia implements Serializable {
     public Licencia() {
     }
 
+    /**
+     * Constructor de la clase Licencia con todos los atributos
+     *
+     * @param numeroLicencia El número de la licencia
+     * @param vigencia La fecha de vigencia de la licencia
+     * @param costo El costo de la licencia
+     * @param fechaExpedicion La fecha de expedición de la licencia
+     * @param persona La persona asociada a la licencia
+     * @param id El identificador de la licencia
+     */
+   
     public Licencia(String numeroLicencia, Date vigencia, double costo, Date fechaExpedicion, Persona persona, Long id) {
         this.numeroLicencia = numeroLicencia;
         this.vigencia = vigencia;
@@ -54,7 +65,17 @@ public class Licencia implements Serializable {
         this.persona = persona;
         this.id = id;
     }
-
+ 
+    
+    /**
+     * Constructor de la clase Licencia sin el identificador
+     *
+     * @param numeroLicencia El número de la licencia
+     * @param vigencia La fecha de vigencia de la licencia
+     * @param costo El costo de la licencia
+     * @param fechaExpedicion La fecha de expedición de la licencia
+     * @param persona La persona asociada a la licencia
+     */
     public Licencia(String numeroLicencia, Date vigencia, double costo, Date fechaExpedicion, Persona persona) {
         this.numeroLicencia = numeroLicencia;
         this.vigencia = vigencia;
@@ -63,6 +84,9 @@ public class Licencia implements Serializable {
         this.persona = persona;
     }
 
+    // Getters y Setters
+    //Metodo getter que devuelve el valor  y metodo setter que establece el valor 
+    
     public Long getId() {
         return id;
     }
@@ -118,6 +142,13 @@ public class Licencia implements Serializable {
         return hash;
     }
 
+    
+    /**
+    * Compara este objeto con otro objeto para determinar la igualdad
+    * Dos objetos de tipo `Licencia` se consideran iguales si tienen el mismo identificador (`id`)
+    * @param object El objeto con el que se va a comparar
+    * @return true si los objetos son iguales, false en caso contrario
+    */
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -131,6 +162,12 @@ public class Licencia implements Serializable {
         return true;
     }
 
+    
+    /**
+     * Devuelve una representación de cadena del objeto.
+     * La representación incluye el nombre de la clase y el valor del identificador (`id`) del objeto.
+     * @return Una representación de cadena del objeto
+     */
     @Override
     public String toString() {
         return "entidadesJPA.Licencia[ id=" + id + " ]";

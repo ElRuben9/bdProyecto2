@@ -20,10 +20,17 @@ public class PlacaDAO implements IPlacaDAO {
     
     private EntityManagerFactory emf;
     
+    /**
+     * Constructor que inicializa el EntityManagerFactory
+     */
     public PlacaDAO() {
         emf = Persistence.createEntityManagerFactory("ConexionPU");
     }
     
+    /**
+     * Método para guardar una placa en la base de datos
+     * @param placa La placa a guardar
+     */
     @Override
     public void guardarPlaca(Placa placa) {
         EntityManager em = emf.createEntityManager();
@@ -42,12 +49,16 @@ public class PlacaDAO implements IPlacaDAO {
         }
     }
     
-     // Método para desactivar las placas activas de un automóvil
+    /**
+     * Método para desactivar las placas activas de un automóvil
+     * @param automovil El automóvil del cual se desactivarán las placas activas
+     */
     public void desactivarPlacasActivas(Automovil automovil) {
         EntityManager em = emf.createEntityManager();
         EntityTransaction tx = em.getTransaction();
         try {
             tx.begin();
+            // Actualizar el estado de las placas activas del automóvil a 'Inactivo'
             Query query = em.createQuery("UPDATE Placa p SET p.estado = 'Inactivo' WHERE p.automovil = :automovil AND p.estado = 'Activo'");
             query.setParameter("automovil", automovil);
             query.executeUpdate();
@@ -62,5 +73,3 @@ public class PlacaDAO implements IPlacaDAO {
         }
     }
 }
-
-

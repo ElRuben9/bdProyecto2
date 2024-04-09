@@ -45,7 +45,20 @@ public class Persona implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    public Persona(String RFC, String nombre, String apellidoPaterno, String apellidoMaterno, Date fechaNacimiento, String telefono, String curp) {
+    
+    /**
+     * Constructor que inicializa una instancia de Persona con todos los campos
+     *
+     * @param RFC El RFC de la persona
+     * @param nombre El nombre de la persona
+     * @param apellidoPaterno El apellido paterno de la persona
+     * @param apellidoMaterno El apellido materno de la persona
+     * @param fechaNacimiento La fecha de nacimiento de la persona
+     * @param telefono El número de teléfono de la persona
+     * @param curp La CURP de la persona
+     */
+    public Persona(String RFC, String nombre, String apellidoPaterno, String apellidoMaterno, 
+            Date fechaNacimiento, String telefono, String curp) {
         this.RFC = RFC;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
@@ -55,10 +68,15 @@ public class Persona implements Serializable {
         this.curp = curp;
     }
 
+    
+    /**
+     * Constructor por defecto de la clase Persona
+     */
     public Persona() {
     }
 
-    public Persona(String RFC, String nombre, String apellidoPaterno, String apellidoMaterno, Date fechaNacimiento, String telefono, String curp, Long id) {
+    public Persona(String RFC, String nombre, String apellidoPaterno, String apellidoMaterno, 
+            Date fechaNacimiento, String telefono, String curp, Long id) {
         this.RFC = RFC;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
@@ -69,6 +87,10 @@ public class Persona implements Serializable {
         this.id = id;
     }
 
+    
+    // Getters y Setters
+    //Metodo getter que devuelve el valor  y metodo setter que establece el valor 
+    
     public Long getId() {
         return id;
     }
@@ -133,6 +155,9 @@ public class Persona implements Serializable {
         this.curp = curp;
     }
 
+    
+    
+     // Métodos heredados
     @Override
     public int hashCode() {
         int hash = 0;

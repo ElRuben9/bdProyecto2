@@ -44,10 +44,26 @@ public class Placa implements Serializable {
     @JoinColumn(name = "automovil_id")
     private Automovil automovil;
 
+    
+    /**
+     * Constructor por defecto de la clase Placa.
+     */
     public Placa() {
     }
-
-    public Placa(Long id, String numeroPlaca, Date fechaEmision, Date fechaRecepcion, double costo, String estado, Automovil automovil) {
+    
+    /**
+     * Constructor que inicializa una instancia de Placa con todos los campos
+     *
+     * @param id El identificador de la placa
+     * @param numeroPlaca El número de la placa
+     * @param fechaEmision La fecha de emisión de la placa
+     * @param fechaRecepcion La fecha de recepción de la placa
+     * @param costo El costo de la placa
+     * @param estado El estado de la placa
+     * @param automovil El automóvil asociado a la placa
+     */
+    public Placa(Long id, String numeroPlaca, Date fechaEmision, Date fechaRecepcion, 
+            double costo, String estado, Automovil automovil) {
         this.id = id;
         this.numeroPlaca = numeroPlaca;
         this.fechaEmision = fechaEmision;
@@ -57,7 +73,20 @@ public class Placa implements Serializable {
         this.automovil = automovil;
     }
 
-    public Placa(String numeroPlaca, Date fechaEmision, Date fechaRecepcion, double costo, String estado, Automovil automovil) {
+    
+    
+    /**
+     * Constructor que inicializa una instancia de Placa con todos los campos excepto el identificador
+     *
+     * @param numeroPlaca El número de la placa
+     * @param fechaEmision La fecha de emisión de la placa
+     * @param fechaRecepcion La fecha de recepción de la placa
+     * @param costo El costo de la placa
+     * @param estado El estado de la placa
+     * @param automovil El automóvil asociado a la placa
+     */
+    public Placa(String numeroPlaca, Date fechaEmision, Date fechaRecepcion, 
+            double costo, String estado, Automovil automovil) {
         this.numeroPlaca = numeroPlaca;
         this.fechaEmision = fechaEmision;
         this.fechaRecepcion = fechaRecepcion;
@@ -66,6 +95,9 @@ public class Placa implements Serializable {
         this.automovil = automovil;
     }
 
+    
+    // Getters y Setters
+    //Metodo getter que devuelve el valor  y metodo setter que establece el valor 
     public Long getId() {
         return id;
     }

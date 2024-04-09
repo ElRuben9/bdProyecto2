@@ -48,11 +48,29 @@ public class Automovil implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "fecha_recepcion")
     private Date fechaRecepcion;
-
+    
+    
+    /**
+     * Método constructor de la clase Automovil
+     */
     public Automovil() {
     }
-
-    public Automovil(Long id, String numeroSerie, String marca, String linea, String color, int modelo, List<Placa> placas, Date fechaEmision, Date fechaRecepcion) {
+     
+    
+    /**
+     * Constructor de la clase Automovil con parámetros
+     *
+     * @param numeroSerie El número de serie del automóvil
+     * @param marca La marca del automóvil
+     * @param linea La línea del automóvil
+     * @param color El color del automóvil
+     * @param modelo El modelo del automóvil
+     * @param placas La lista de placas asociadas al automóvil
+     * @param fechaEmision La fecha de emisión del automóvil
+     * @param fechaRecepcion La fecha de recepción del automóvil
+     */
+    public Automovil(Long id, String numeroSerie, String marca, String linea, String color, 
+            int modelo, List<Placa> placas, Date fechaEmision, Date fechaRecepcion) {
         this.id = id;
         this.numeroSerie = numeroSerie;
         this.marca = marca;
@@ -64,7 +82,8 @@ public class Automovil implements Serializable {
         this.fechaRecepcion = fechaRecepcion;
     }
 
-    public Automovil(String numeroSerie, String marca, String linea, String color, int modelo, List<Placa> placas, Date fechaEmision, Date fechaRecepcion) {
+    public Automovil(String numeroSerie, String marca, String linea, String color, 
+            int modelo, List<Placa> placas, Date fechaEmision, Date fechaRecepcion) {
         this.numeroSerie = numeroSerie;
         this.marca = marca;
         this.linea = linea;
@@ -75,7 +94,11 @@ public class Automovil implements Serializable {
         this.fechaRecepcion = fechaRecepcion;
     }
     
-
+     
+    //Getters y Setters
+     
+     //Metodo getter que devuelve el valor y metodo setter que establece el valor 
+    
     public Date getFechaEmision() {
         return fechaEmision;
     }
@@ -92,9 +115,7 @@ public class Automovil implements Serializable {
         this.fechaRecepcion = fechaRecepcion;
     }
     
-    
-
-    public Long getId() {
+        public Long getId() {
         return id;
     }
 
