@@ -10,7 +10,10 @@ package negocio;
  */
 import dto.LicenciaDTO;
 
+// Interfaz para la lógica de negocio de consulta de licencias
 public interface IConsultaLicenciaBO {
+    
+    // Método para consultar una licencia por su ID
     LicenciaDTO consultarLicenciaPorId(Long id);
   
 }

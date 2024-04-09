@@ -36,7 +36,8 @@ public class ConsultaPersonaBO {
             // Devolver la primera persona encontrada (asumiendo que el RFC es único)
             return personas.get(0);
         } else {
-            return null; // No se encontró ninguna persona con el RFC especificado
+           // No se encontró ninguna persona con el RFC especificado 
+            return null; 
         }
     } finally {
         entityManager.close();

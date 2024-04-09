@@ -8,6 +8,9 @@ package negocio;
  *
  * @author ruben
  */
+// Interfaz para la lógica de negocio de consulta de personas
 public interface IConsultaPersonaBO {
+    
+    // Método para verificar si existe una persona con el RFC proporcionado
     Boolean existePersonaConRFC(String rfc);
 }
