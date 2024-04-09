@@ -6,18 +6,35 @@ package com.mycompany.presentacion;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author diana
  */
 public class Consultas extends javax.swing.JFrame {
-
+  DefaultTableModel modelo;
     /**
      * Creates new form Consultas
      */
     public Consultas() {
         initComponents();
+        
+        
+        modelo = new DefaultTableModel();
+        modelo.addColumn("CURP");
+        modelo.addColumn("Nombre(s)");
+        modelo.addColumn("Nacimiento");
+        
+        this.Resultados.setModel(modelo);
+        
+        
+        // Inicializar el modelo de la tabla DetallesHistorial
+        modelo = new DefaultTableModel();
+        modelo.addColumn("Tipo de tramite");
+        modelo.addColumn("Fecha");
+        this.DetallesHistorial.setModel(modelo);
+        
         // ActionListener para el botón Regresar
         Regresar.addActionListener(new ActionListener() {
             @Override
@@ -48,7 +65,7 @@ public class Consultas extends javax.swing.JFrame {
         jTextField2 = new javax.swing.JTextField();
         jTextField3 = new javax.swing.JTextField();
         jTextField4 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        botonBuscar = new javax.swing.JButton();
         Regresar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         Resultados = new javax.swing.JTable();
@@ -86,46 +103,51 @@ public class Consultas extends javax.swing.JFrame {
         jPanel1.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 170, 260, -1));
         jPanel1.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 210, 260, -1));
 
-        jButton1.setBackground(new java.awt.Color(160, 11, 43));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Buscar");
-        jButton1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 250, 140, 30));
+        botonBuscar.setBackground(new java.awt.Color(160, 11, 43));
+        botonBuscar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        botonBuscar.setForeground(new java.awt.Color(255, 255, 255));
+        botonBuscar.setText("Buscar");
+        botonBuscar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        botonBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonBuscarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(botonBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 250, 140, 30));
 
         Regresar.setBackground(new java.awt.Color(160, 11, 43));
         Regresar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         Regresar.setForeground(new java.awt.Color(255, 255, 255));
         Regresar.setText("Regresar");
         Regresar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanel1.add(Regresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 490, 140, 30));
+        jPanel1.add(Regresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 510, 140, 30));
 
         Resultados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null},
-                {null},
-                {null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Resultados"
+                "CURP", "Nombre(s)", "Nacimiento"
             }
         ));
         jScrollPane2.setViewportView(Resultados);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 290, -1, 80));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 290, -1, 120));
 
         DetallesHistorial.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null},
-                {null}
+                {null, null},
+                {null, null}
             },
             new String [] {
-                "Detalles del historial"
+                "Tipo de tramite", "Fecha"
             }
         ));
         jScrollPane1.setViewportView(DetallesHistorial);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 400, 450, 80));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 420, 450, 80));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -141,6 +163,39 @@ public class Consultas extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed
+        // TODO add your handling code here:
+       // Obtener los valores de los campos de entrada
+    String curp = jTextField2.getText();
+    String nombre = jTextField3.getText();
+    String nacimiento = jTextField4.getText();
+    
+    // Agregar los valores a la tabla de resultados
+    Object[] fila = {curp, nombre, nacimiento};
+    modelo.addRow(fila); // Añadir la fila al modelo de la tabla
+    
+    // Limpiar los campos de entrada después de agregar los datos
+    jTextField2.setText("");
+    jTextField3.setText("");
+    jTextField4.setText("");
+     
+    // Obtener y agregar los detalles del historial
+        String tipoTramite = obtenerTipoTramite(curp);
+        String fecha = obtenerFecha(curp);
+        Object[] detalleHistorial = {tipoTramite, fecha};
+        modelo.addRow(detalleHistorial); // Añadir la fila al modelo de la tabla de DetallesHistorial
+    
+        
+    }//GEN-LAST:event_botonBuscarActionPerformed
+       private String obtenerTipoTramite(String curp) {
+    
+    return "Renovación de Licencia";
+       
+       }
+          private String obtenerFecha(String curp) {
+          return "2024-04-08";
+    
+     } 
     /**
      * @param args the command line arguments
      */
@@ -168,6 +223,22 @@ public class Consultas extends javax.swing.JFrame {
         }
         //</editor-fold>
 
+          try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Consultas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Consultas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Consultas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Consultas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -180,7 +251,7 @@ public class Consultas extends javax.swing.JFrame {
     private javax.swing.JTable DetallesHistorial;
     private javax.swing.JButton Regresar;
     private javax.swing.JTable Resultados;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton botonBuscar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

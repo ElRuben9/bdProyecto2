@@ -41,7 +41,7 @@ public class TramitePlacasNuevoBO {
      // Método para cambiar las placas de un vehículo
     public void cambiarPlacas(String numeroSerie, Placa nuevaPlaca) {
         
-         // Obtener el automóvil por su número de serie
+         // Obtener el automóvil por su número de serie.
         Automovil automovil = automovilDAO.obtenerAutomovilPorNumeroSerie(numeroSerie);
         if (automovil != null) {
             
