@@ -489,3 +489,4 @@ public class TramiteLicencia extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField2;
     // End of variables declaration                   
 }
+ 
